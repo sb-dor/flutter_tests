@@ -65,7 +65,7 @@ class AppState {
 }
 
 class Store {
-  final AppState appState;
+  AppState appState;
   final _controller = StreamController<AppState>.broadcast();
   final BirdLogic birdLogic;
 
@@ -74,6 +74,9 @@ class Store {
   Store(this.appState, this.birdLogic);
 
   void buyBird(BirdItem bird) {
+    final List<Bird> newBirds = List.from(appState.birds);
+    newBirds.add(Bird(bird.birdType));
+    appState = appState.copyWith(birds: newBirds);
     _controller.add(appState);
   }
 

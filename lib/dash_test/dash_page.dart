@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/dash_test/dash_logic.dart';
 
@@ -6,30 +8,88 @@ abstract class DashAssets {
   static const dashGreenImage = "assets/dashes/dash_green.png";
 }
 
+final random = Random();
+final calc = BirdLogic(random);
+final store = Store(AppState.initialState, calc);
+
 class DashPage extends StatelessWidget {
   const DashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Text("Dash app"),
+          child: MainScreen(store: store),
         ),
       ),
     );
   }
 }
 
-class BirdView extends StatelessWidget {
+class MainScreen extends StatelessWidget {
+  final Store store;
+
+  const MainScreen({
+    super.key,
+    required this.store,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            // WalletView(store: store),
+            Expanded(
+              child: Center(
+                child: StreamBuilder<AppState>(
+                  initialData: store.appState,
+                  stream: store.getChanges,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    final state = snapshot.requireData;
+                    var uniqueKey = 0;
+                    return SingleChildScrollView(
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        alignment: WrapAlignment.start,
+                        children: state.birdsItem
+                            .map(
+                              (bird) => _BirdView(
+                                key: ValueKey('$MainScreen${bird.birdType}${uniqueKey++}'),
+                                birdType: bird.birdType,
+                                // onTap: () => store.earn(bird),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            BirdStoreView(store: store),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BirdView extends StatelessWidget {
   static const size = 60.0;
   final BirdType birdType;
   final VoidCallback? onTap;
 
-  const BirdView({
+  const _BirdView({
     super.key,
     required this.birdType,
-    required this.onTap,
+    this.onTap,
   });
 
   @override
@@ -82,7 +142,7 @@ class BirdStoreView extends StatelessWidget {
                     .map(
                       (item) => Opacity(
                         opacity: item.price <= state.balance ? 1.0 : 0.2,
-                        child: BirdView(
+                        child: _BirdView(
                           key: ValueKey('$BirdStoreView${item.birdType}'),
                           birdType: item.birdType,
                           onTap: item.price <= state.balance ? () => store.buyBird(item) : null,
