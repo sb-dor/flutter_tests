@@ -44,7 +44,7 @@ class MainScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            // WalletView(store: store),
+            WalletView(store: store),
             Expanded(
               child: Center(
                 child: StreamBuilder<AppState>(
@@ -63,7 +63,7 @@ class MainScreen extends StatelessWidget {
                               (bird) => _BirdView(
                                 key: ValueKey('$MainScreen${bird.birdType}${uniqueKey++}'),
                                 birdType: bird.birdType,
-                                // onTap: () => store.earn(bird),
+                                onTap: () => store.earn(bird),
                               ),
                             )
                             .toList(),
@@ -152,6 +152,50 @@ class BirdStoreView extends StatelessWidget {
                     .toList(),
               );
             }),
+      ),
+    );
+  }
+}
+
+class WalletView extends StatelessWidget {
+  final Store store;
+
+  const WalletView({
+    super.key,
+    required this.store,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      elevation: 8.0,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Баланс',
+                style: TextStyle(fontSize: 18),
+              ),
+              StreamBuilder<AppState>(
+                initialData: store.appState,
+                stream: store.getChanges,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return Container();
+                  final state = snapshot.requireData;
+                  return Text(
+                    '\$${state.balance}',
+                    key: ValueKey('${WalletView}balance'),
+                    style: TextStyle(fontSize: 28),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -76,11 +76,17 @@ class Store {
   void buyBird(BirdItem bird) {
     final List<Bird> newBirds = List.from(appState.birds);
     newBirds.add(Bird(bird.birdType));
-    appState = appState.copyWith(birds: newBirds);
+    final balance = appState.balance - bird.price;
+    appState = appState.copyWith(
+      birds: newBirds,
+      balance: balance,
+    );
     _controller.add(appState);
   }
 
   void earn(Bird bird) {
+    final newBalance = appState.balance + birdLogic.invoke(bird);
+    appState = appState.copyWith(balance: newBalance);
     _controller.add(appState);
   }
 }
