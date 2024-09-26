@@ -79,14 +79,14 @@ void main() {
           )
           .length;
 
-      debugPrint("length of list: ${store.appState.birds.length}");
+      debugPrint("length of list: ${store.appState.birds.length} | $lengthOfAddedConstantBirds");
 
       lengthOfAddedConstantBirds += 1;
 
       await tester.tap(constantBirdItem); // tap on widget
       await tester.pump(); // render again
 
-      debugPrint("length of list: ${store.appState.birds.length}");
+      debugPrint("length of list: ${store.appState.birds.length} | $lengthOfAddedConstantBirds");
 
       // the list of items that was rendered in UI
       final constantBirds = find.byWidgetPredicate(

@@ -58,7 +58,7 @@ class MainScreen extends StatelessWidget {
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.start,
                         alignment: WrapAlignment.start,
-                        children: state.birdsItem
+                        children: state.birds
                             .map(
                               (bird) => _BirdView(
                                 key: ValueKey('$MainScreen${bird.birdType}${uniqueKey++}'),
@@ -145,7 +145,7 @@ class BirdStoreView extends StatelessWidget {
                         child: _BirdView(
                           key: ValueKey('$BirdStoreView${item.birdType}'),
                           birdType: item.birdType,
-                          onTap: item.price <= state.balance ? () => store.buyBird(item) : null,
+                          onTap: () => store.buyBird(item),
                         ),
                       ),
                     )
