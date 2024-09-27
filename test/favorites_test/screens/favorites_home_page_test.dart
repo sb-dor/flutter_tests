@@ -16,6 +16,12 @@ void main() {
   group(
     'favorites home page test',
     () {
+      testWidgets('Testing if ListView shows up', (tester) async {
+        // Render the HomePage widget
+        await tester.pumpWidget(createHomePage());
+        expect(find.byType(ListView), findsOneWidget);
+      });
+
       testWidgets(
         'testing scrolling',
         // Widget tests are always asynchronous
@@ -42,6 +48,40 @@ void main() {
           expect(find.text('Item 0'), findsNothing);
         },
       );
+
+      //
+      // This test verifies that tapping the IconButton changes from Icons.favorite_border
+      // (an open heart) to Icons.favorite (a filled-in heart) and then back to Icons.favorite_border
+      // when tapped again.
+      testWidgets('Testing IconButtons', (tester) async {
+        //
+        await tester.pumpWidget(createHomePage());
+
+        // first check that there is no any widget with Icons.favorite
+        expect(find.byIcon(Icons.favorite), findsNothing);
+
+        // tap on the first found item which item's icon is favorite_border (hasn't added to the list yet)
+        await tester.tap(find.byIcon(Icons.favorite_border).first);
+
+        // re render the widget
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+
+        // check that item was added
+        expect(find.text('Added to favorites.'), findsOneWidget);
+
+        // check that there are icons that was changed
+        expect(find.byIcon(Icons.favorite), findsWidgets);
+
+        // tap the changed widget that it's icon was changed into favorite
+        await tester.tap(find.byIcon(Icons.favorite).first);
+
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+
+        expect(find.text('Removed from favorites.'), findsOneWidget);
+
+        // check that there is no any widget with added favorite anymore
+        expect(find.byIcon(Icons.favorite), findsNothing);
+      });
     },
   );
 }
