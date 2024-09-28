@@ -6,6 +6,10 @@ import 'package:provider/provider.dart';
 import 'favorites_test/screens/favorites_home_page.dart';
 
 // https://docs.flutter.dev/testing/overview
+// https://docs.flutter.dev/cookbook/testing/widget/finders
+// https://docs.flutter.dev/cookbook/testing/widget/scrolling
+// https://docs.flutter.dev/cookbook/testing/widget/tap-drag
+// https://docs.flutter.dev/testing/integration-tests
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(

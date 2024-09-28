@@ -43,7 +43,7 @@ class FavoriteItemTile extends StatelessWidget {
           key: Key('favorites_text_$itemNo'),
         ),
         trailing: IconButton(
-          key: Key('remove_icon_$itemNo'),
+          key: ValueKey<String>('remove_icon_$itemNo'),
           icon: const Icon(Icons.close),
           onPressed: () {
             Provider.of<Favorites>(context, listen: false).remove(itemNo);
