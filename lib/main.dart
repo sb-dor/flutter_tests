@@ -4,6 +4,7 @@ import 'package:flutter_tests/favorites_test/models/favorites.dart';
 import 'package:provider/provider.dart';
 
 import 'favorites_test/screens/favorites_home_page.dart';
+import 'listview_scroll_test/listview_scroll_test.dart';
 
 // https://docs.flutter.dev/testing/overview
 // https://docs.flutter.dev/cookbook/testing/widget/finders
@@ -20,7 +21,7 @@ void main() {
         ),
       ],
       child: MaterialApp(
-        home: const FavoritesHomePage(),
+        home: const ListviewScrollTest(),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.deepPurple,
