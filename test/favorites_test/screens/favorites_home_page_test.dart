@@ -4,12 +4,20 @@ import 'package:flutter_tests/favorites_test/models/favorites.dart';
 import 'package:flutter_tests/favorites_test/screens/favorites_home_page.dart';
 import 'package:provider/provider.dart';
 
-Widget createHomePage() => ChangeNotifierProvider<Favorites>(
+class CreateHomePage extends StatelessWidget {
+  const CreateHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<Favorites>(
       create: (_) => Favorites(),
       child: const MaterialApp(
         home: FavoritesHomePage(),
       ),
     );
+  }
+}
+
 
 void main() {
   //
@@ -18,7 +26,7 @@ void main() {
     () {
       testWidgets('Testing if ListView shows up', (tester) async {
         // Render the HomePage widget
-        await tester.pumpWidget(createHomePage());
+        await tester.pumpWidget(const CreateHomePage());
         expect(find.byType(ListView), findsOneWidget);
       });
 
@@ -27,7 +35,7 @@ void main() {
         // Widget tests are always asynchronous
         (WidgetTester tester) async {
           // Render the HomePage widget
-          await tester.pumpWidget(createHomePage());
+          await tester.pumpWidget(const CreateHomePage());
 
           // Verify that 'Item 0' is initially visible on the screen
           expect(find.text('Item 0'), findsOneWidget);
@@ -55,7 +63,7 @@ void main() {
       // when tapped again.
       testWidgets('Testing IconButtons', (tester) async {
         //
-        await tester.pumpWidget(createHomePage());
+        await tester.pumpWidget(const CreateHomePage());
 
         // first check that there is no any widget with Icons.favorite
         expect(find.byIcon(Icons.favorite), findsNothing);

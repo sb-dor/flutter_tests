@@ -18,7 +18,7 @@ class FavoritesHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FavoritesPage(),
+                  builder: (context) => const FavoritesPage(),
                 ),
               );
             },
