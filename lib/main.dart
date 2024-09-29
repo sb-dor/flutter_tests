@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/dash_test/dash_page.dart';
 import 'package:flutter_tests/favorites_test/models/favorites.dart';
+import 'package:flutter_tests/todo_test/todo_page.dart';
 import 'package:flutter_tests/todo_test/todo_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ void main() {
         ),
       ],
       child: MaterialApp(
-        home: const ListviewScrollTest(),
+        home: const TodoPage(),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.deepPurple,

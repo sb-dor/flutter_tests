@@ -12,8 +12,8 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeTodo(String id) async {
-    _todos.removeWhere((todo) => todo.id == id);
+  void removeTodo(TodoModel removeModel) async {
+    _todos.removeWhere((todo) => todo.id == removeModel.id);
     notifyListeners();
   }
 }
