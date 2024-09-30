@@ -6,6 +6,9 @@ class TodoProvider extends ChangeNotifier {
 
   List<TodoModel> get todos => _todos;
 
+  // test purpose
+  void initTodos(List<TodoModel> todos) => _todos.addAll(todos);
+
   void addTodo(String name) async {
     final todo = TodoModel(name: name);
     _todos.add(todo);
