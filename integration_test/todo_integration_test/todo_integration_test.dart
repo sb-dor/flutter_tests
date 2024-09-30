@@ -19,7 +19,7 @@ void main() {
   late TodoProvider todoProvider;
   late Widget testApp;
 
-  setUpAll(
+  setUp(
     () {
       todoProvider = TodoProvider();
       testApp = _TestApp(todoProvider: todoProvider);
