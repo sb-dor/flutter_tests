@@ -38,6 +38,7 @@ class _TodoPageState extends State<TodoPage> {
               ),
               const SizedBox(width: 10),
               IconButton(
+                key: const ValueKey<String>("add_icon_button"),
                 onPressed: () {
                   if (_textEditingController.text.trim().isEmpty) return;
                   todoProvider.addTodo(_textEditingController.text.trim());
@@ -58,6 +59,7 @@ class _TodoPageState extends State<TodoPage> {
                   leading: SizedBox(
                     width: 50,
                     child: Text(
+                      key: ValueKey("text_item_${item.id}"),
                       "${item.id}",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
@@ -67,7 +69,7 @@ class _TodoPageState extends State<TodoPage> {
                   ),
                   title: Text("${item.name}"),
                   trailing: IconButton(
-                    key: ValueKey<String>("delete_button_$index"),
+                    key: ValueKey<String>("delete_button_${item.id}"),
                     onPressed: () {
                       todoProvider.removeTodo(item);
                     },
