@@ -9,18 +9,18 @@ The primary difference between setUp and setUpAll in Flutter or Dart test framew
 
         
 
-    setUp(() {
-        // Runs before each test
-        someResource = SomeResource();
-    });
-    
-    test('first test', () {
-        // First test uses the initialized resource
-    });
-    
-    test('second test', () {
-        // Second test uses a freshly initialized resource
-    });
+        setUp(() {
+            // Runs before each test
+            someResource = SomeResource();
+        });
+        
+        test('first test', () {
+            // First test uses the initialized resource
+        });
+        
+        test('second test', () {
+            // Second test uses a freshly initialized resource
+        });
 
 
 2. setUpAll()
@@ -31,18 +31,18 @@ The primary difference between setUp and setUpAll in Flutter or Dart test framew
    •	Use case: When the setup process is time-consuming or does not need to be repeated for every test (e.g., setting up a database connection).
 
 
-    setUpAll(() {
-        // Runs once before all tests
-        someResource = SomeExpensiveResource();
-    });
-    
-    test('first test', () {
-        // First test uses the same resource
-    });
-    
-    test('second test', () {
-        // Second test uses the same resource
-    });
+        setUpAll(() {
+            // Runs once before all tests
+            someResource = SomeExpensiveResource();
+        });
+        
+        test('first test', () {
+            // First test uses the same resource
+        });
+        
+        test('second test', () {
+            // Second test uses the same resource
+        });
 
 
 
