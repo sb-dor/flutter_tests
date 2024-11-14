@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/dash_test/dash_page.dart';
 import 'package:flutter_tests/favorites_test/models/favorites.dart';
@@ -14,26 +17,33 @@ import 'listview_scroll_test/listview_scroll_test.dart';
 // https://docs.flutter.dev/cookbook/testing/widget/tap-drag
 // https://docs.flutter.dev/testing/integration-tests
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<Favorites>(
-          create: (_) => Favorites(),
-        ),
-        ChangeNotifierProvider<TodoProvider>(
-          create: (_) => TodoProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        home: const TodoPage(),
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
+  runZonedGuarded(
+    () {
+      WidgetsFlutterBinding.ensureInitialized();
+      runApp(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<Favorites>(
+              create: (_) => Favorites(),
+            ),
+            ChangeNotifierProvider<TodoProvider>(
+              create: (_) => TodoProvider(),
+            ),
+          ],
+          child: MaterialApp(
+            home: const TodoPage(),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepPurple,
+              ),
+              useMaterial3: true,
+            ),
           ),
-          useMaterial3: true,
         ),
-      ),
-    ),
+      );
+    },
+    (error, sTrace) {
+      // debug error
+    },
   );
 }
