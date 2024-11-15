@@ -6,7 +6,7 @@ import 'rest_client.dart';
 abstract base class RestClientBase implements RestClient {
   final Uri baseUrl;
 
-  RestClientBase({required String url}) : baseUrl = Uri.parse(url);
+  RestClientBase({required String baseUrl}) : baseUrl = Uri.parse(baseUrl);
 
   final _jsonUTF8 = json.fuse(utf8);
 
@@ -113,24 +113,50 @@ abstract base class RestClientBase implements RestClient {
   }) async {
     if (body == null) return null;
 
+    // try {
+    // ResponseBody class has "data" field, and that is why every -> :final Type data <- should be called "data"
+    // you can name "data" whatever you want
+    final decodeBody = switch (body) {
+      MapResponseBody(:final Map<String, Object?> data) => data,
+      StringResponseBody(:final String data) => await _decodeString(data),
+      BytesResponseBody(:final List<int> data) => await _decodeBytes(data),
+    };
+
+    // if server is sending "error" data you have to deal with it
+    // you can write your own error like -> "success" : false
+    // doesn't matter
+    if (decodeBody case {"error": final Map<String, Object?> error}) {
+      // TODO: write en error exception
+    }
+
+    // this code also checks whether everything went great in server
+    // you can write your own logic like -> "success" : true
+    if (decodeBody case {"data": final Map<String, Object?> data}) {
+      return data;
+    }
+
+    return decodeBody;
+
+    //
+    // } on Object catch (e, trace) {
+    //   debugPrint("converting error is: $e");
+    //   // TODO: write en error exception
+    //   // write exceptions in the future
+    //   // when you will get what is going on here
+    // }
+  }
+
+  /// encodes [body] to JSON and then to UTF8
+  @protected
+  @visibleForTesting
+  List<int> encodeBody(Map<String, Object?> body) {
     try {
-      // ResponseBody class has "data" field, and that is why every -> :final Type data <- should be called "data"
-      // you can name "data" whatever you want
-      final decodeBody = switch (body) {
-        StringResponseBody(:final String data) => await _decodeString(data),
-        MapResponseBody(:final Map<String, Object?> data) => data,
-        BytesResponseBody(:final List<int> data) => _decodeBytes(data),
-      };
-
-      if (decodeBody case {"error": final Map<String, Object?> error}) {
-        // TODO: write en error exception
-      }
-
-      //
-    } on Object catch (e, trace) {
+      return _jsonUTF8.encode(body);
+    } on Object catch (e, sTrace) {
+      throw Error(); // temp
       // TODO: write en error exception
       // write exceptions in the future
-      // when you will get what is goint on here
+      // when you will get what is going on here
     }
   }
 
@@ -159,8 +185,8 @@ abstract base class RestClientBase implements RestClient {
       return (await compute(
         _jsonUTF8.decode,
         bytesBody,
-        debugLabel: kDebugMode ? "Decode bytes compute" : null,
-      )) as Map<String, Object?>;
+        debugLabel: kDebugMode ? 'Decode Bytes Compute' : null,
+      ))! as Map<String, Object?>;
     }
 
     return _jsonUTF8.decode(bytesBody) as Map<String, Object?>;

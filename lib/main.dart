@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'favorites_test/screens/favorites_home_page.dart';
 import 'listview_scroll_test/listview_scroll_test.dart';
+import 'network/network_test_page.dart';
 
 // https://docs.flutter.dev/testing/overview
 // https://docs.flutter.dev/cookbook/testing/widget/finders
@@ -31,7 +32,7 @@ void main() {
             ),
           ],
           child: MaterialApp(
-            home: const TodoPage(),
+            home: const NetworkTestPage(),
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(
                 seedColor: Colors.deepPurple,
@@ -43,6 +44,7 @@ void main() {
       );
     },
     (error, sTrace) {
+      debugPrint("error is $error | trace: $sTrace");
       // debug error
     },
   );
