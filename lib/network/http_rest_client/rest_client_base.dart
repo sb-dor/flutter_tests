@@ -90,6 +90,7 @@ abstract base class RestClientBase implements RestClient {
         queryParams: queryParams,
       );
 
+  /// Builds [Uri] from [path], [queryParams] and [baseUri]
   @protected
   @visibleForTesting
   Uri buildUri({required String path, Map<String, String?>? queryParams}) {
@@ -101,6 +102,68 @@ abstract base class RestClientBase implements RestClient {
       // get original queryParameters and also sending queryParams if it exists
       queryParameters: {...baseUrl.queryParameters, ...?queryParams},
     );
+  }
+
+  //
+  @protected
+  @visibleForTesting
+  Future<Map<String, Object?>?> decodeResponse(
+    ResponseBody<Object>? body, {
+    int? statusCode,
+  }) async {
+    if (body == null) return null;
+
+    try {
+      // ResponseBody class has "data" field, and that is why every -> :final Type data <- should be called "data"
+      // you can name "data" whatever you want
+      final decodeBody = switch (body) {
+        StringResponseBody(:final String data) => await _decodeString(data),
+        MapResponseBody(:final Map<String, Object?> data) => data,
+        BytesResponseBody(:final List<int> data) => _decodeBytes(data),
+      };
+
+      if (decodeBody case {"error": final Map<String, Object?> error}) {
+        // TODO: write en error exception
+      }
+
+      //
+    } on Object catch (e, trace) {
+      // TODO: write en error exception
+      // write exceptions in the future
+      // when you will get what is goint on here
+    }
+  }
+
+  /// Decodes a [String] to a [Map<String, Object?>]
+  Future<Map<String, Object?>?> _decodeString(String stringBody) async {
+    if (stringBody.isEmpty) return null;
+
+    // run in another isolate in order to convert string into Map
+    if (stringBody.length > 1000) {
+      return (await compute(
+        jsonDecode,
+        stringBody,
+        debugLabel: kDebugMode ? "Decode String compute" : null,
+      )) as Map<String, Object?>;
+    }
+
+    return jsonDecode(stringBody) as Map<String, Object?>;
+  }
+
+  /// Decodes a [List<int>] to a [Map<String, Object?>]
+  Future<Map<String, Object?>?> _decodeBytes(List<int> bytesBody) async {
+    if (bytesBody.isEmpty) return null;
+
+    // run in another isolate in order to convert bytes into Map
+    if (bytesBody.length > 1000) {
+      return (await compute(
+        _jsonUTF8.decode,
+        bytesBody,
+        debugLabel: kDebugMode ? "Decode bytes compute" : null,
+      )) as Map<String, Object?>;
+    }
+
+    return _jsonUTF8.decode(bytesBody) as Map<String, Object?>;
   }
 }
 
