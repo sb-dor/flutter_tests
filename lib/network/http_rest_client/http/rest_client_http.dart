@@ -11,14 +11,14 @@ final class RestClientHttp extends RestClientBase {
   @override
   Future<Map<String, Object?>?> send({
     required String path,
-    required String method,
+    required RequestType method,
     Map<String, Object?>? body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
   }) async {
     // try {
       final uri = buildUri(path: path, queryParams: queryParams);
-      final request = http.Request(method, uri);
+      final request = http.Request(method.name, uri);
 
       if (body != null) {
         request.bodyBytes = encodeBody(body);

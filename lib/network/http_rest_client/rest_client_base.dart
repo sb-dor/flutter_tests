@@ -3,6 +3,8 @@ import 'package:path/path.dart' as p;
 import 'package:flutter/foundation.dart';
 import 'rest_client.dart';
 
+enum RequestType { GET, POST, PUT, DELETE, PATCH }
+
 abstract base class RestClientBase implements RestClient {
   final Uri baseUrl;
 
@@ -13,7 +15,7 @@ abstract base class RestClientBase implements RestClient {
   /// Sends a request to the server
   Future<Map<String, Object?>?> send({
     required String path,
-    required String method,
+    required RequestType method,
     Map<String, Object?>? body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
@@ -27,7 +29,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: "GET",
+        method: RequestType.GET,
         headers: headers,
         queryParams: queryParams,
       );
@@ -41,7 +43,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: "POST",
+        method: RequestType.POST,
         body: body,
         headers: headers,
         queryParams: queryParams,
@@ -56,7 +58,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: "PUT",
+        method: RequestType.PUT,
         body: body,
         headers: headers,
         queryParams: queryParams,
@@ -70,7 +72,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: "DELETE",
+        method: RequestType.DELETE,
         headers: headers,
         queryParams: queryParams,
       );
@@ -84,7 +86,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: "PATCH",
+        method: RequestType.PATCH,
         body: body,
         headers: headers,
         queryParams: queryParams,
