@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_tests/network/http_rest_client/http_exceptions/rest_client_exception.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/foundation.dart';
 import 'rest_client.dart';
@@ -115,37 +116,51 @@ abstract base class RestClientBase implements RestClient {
   }) async {
     if (body == null) return null;
 
-    // try {
-    // ResponseBody class has "data" field, and that is why every -> :final Type data <- should be called "data"
-    // you can name "data" whatever you want
-    final decodeBody = switch (body) {
-      MapResponseBody(:final Map<String, Object?> data) => data,
-      StringResponseBody(:final String data) => await _decodeString(data),
-      BytesResponseBody(:final List<int> data) => await _decodeBytes(data),
-    };
+    try {
+      // ResponseBody class has "data" field, and that is why every -> :final Type data <- should be called "data"
+      // you can name "data" whatever you want
+      final decodeBody = switch (body) {
+        MapResponseBody(:final Map<String, Object?> data) => data,
+        StringResponseBody(:final String data) => await _decodeString(data),
+        BytesResponseBody(:final List<int> data) => await _decodeBytes(data),
+      };
 
-    // if server is sending "error" data you have to deal with it
-    // you can write your own error like -> "success" : false
-    // doesn't matter
-    if (decodeBody case {"error": final Map<String, Object?> error}) {
+      // if server is sending "error" data you have to deal with it
+      // you can write your own error like -> "success" : false
+      // doesn't matter
+      if (decodeBody case {"error": final Map<String, Object?> error}) {
+        // TODO: write en error exception
+        throw StructuredBackendException(
+          error: error,
+          statusCode: statusCode,
+        );
+      }
+
+      // this code also checks whether everything went great in server
+      // you can write your own logic like -> "success" : true
+      if (decodeBody case {"data": final Map<String, Object?> data}) {
+        return data;
+      }
+
+      return decodeBody;
+
+      //
+    } on RestClientException {
+      rethrow;
+    } on Object catch (e, trace) {
+      debugPrint("converting error is: $e");
       // TODO: write en error exception
+      // write exceptions in the future
+      // when you will get what is going on here
+      Error.throwWithStackTrace(
+        ClientException(
+          message: 'Error occured during decoding',
+          statusCode: statusCode,
+          cause: e,
+        ),
+        trace,
+      );
     }
-
-    // this code also checks whether everything went great in server
-    // you can write your own logic like -> "success" : true
-    if (decodeBody case {"data": final Map<String, Object?> data}) {
-      return data;
-    }
-
-    return decodeBody;
-
-    //
-    // } on Object catch (e, trace) {
-    //   debugPrint("converting error is: $e");
-    //   // TODO: write en error exception
-    //   // write exceptions in the future
-    //   // when you will get what is going on here
-    // }
   }
 
   /// encodes [body] to JSON and then to UTF8

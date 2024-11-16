@@ -20,6 +20,8 @@ sealed class RestClientException implements Exception {
 }
 
 /// [ClientException] is thrown if something went wrong on client side
+/// maybe json was not encoded properly, maybe some url endpoints are not configured properly,
+/// all that stuff that happens in client side
 final class ClientException extends RestClientException {
   const ClientException({
     required super.message,
