@@ -13,11 +13,17 @@ class RepositoryTest {
 
   Future<void> getTestData() async {
     const baseURL = "http://192.168.100.3:8000";
-    const url = "/api/product/novinki";
+    const url = "/api/check/product/in/bookmarks";
 
     final restClient = RestClientHttp(baseUrl: baseURL, client: _client);
 
-    final data = await restClient.send(path: url, method: RequestType.GET);
+    final data = await restClient.send(
+      path: url,
+      method: RequestType.POST,
+      body: {
+        "frameworktest": "flutter",
+      },
+    );
 
     debugPrint("test repository data coming: $data");
   }

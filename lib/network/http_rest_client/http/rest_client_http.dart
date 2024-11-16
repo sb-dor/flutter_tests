@@ -16,9 +16,15 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_tests/network/http_rest_client/http/check_exception_io.dart'
     if (dart.library.js_interop) 'package:flutter_tests/network/http_rest_client/http/check_exception_browser.dart';
 
+// RestClientHttp is class that extends RestClientBase
+// "RestClientBase" is not using anywhere, it's just a abstract class that other classes should extend
+// implementations will be used only
 final class RestClientHttp extends RestClientBase {
   // you can not pass client if you want
-  RestClientHttp({required super.baseUrl, http.Client? client}) : _client = client ?? http.Client();
+  RestClientHttp({
+    required super.baseUrl,
+    http.Client? client, // you don't have to send client, uses for tests most of all
+  }) : _client = client ?? http.Client();
 
   final http.Client _client;
 
@@ -46,7 +52,18 @@ final class RestClientHttp extends RestClientBase {
       final response = await _client.send(request);
 
       final responseStream = await http.Response.fromStream(response);
+
+      // see what's sending server here
+      // all server messages, this kinda things
+      debugPrint("body is: ${responseStream.body}");
+
       return await decodeResponse(
+        // leave StringBodyResponse for the start (it shows server errors)
+        // when you finish requesting to the server
+        // change it to BytesResponseBody if you want
+
+        /// It’s better to convert through bytes and [UTF-8];
+        /// otherwise, you might encounter something like ‘unknown character code.’, "\" <- like this one
         BytesResponseBody(responseStream.bodyBytes),
         statusCode: response.statusCode,
       );

@@ -6,6 +6,8 @@ import 'rest_client.dart';
 
 enum RequestType { GET, POST, PUT, DELETE, PATCH }
 
+// this abstract class, it will not be used, only for implementation and for testing
+// classes that implementing this class will be used
 abstract base class RestClientBase implements RestClient {
   final Uri baseUrl;
 
@@ -115,7 +117,6 @@ abstract base class RestClientBase implements RestClient {
     int? statusCode,
   }) async {
     if (body == null) return null;
-
     try {
       // ResponseBody class has "data" field, and that is why every -> :final Type data <- should be called "data"
       // you can name "data" whatever you want
@@ -142,6 +143,8 @@ abstract base class RestClientBase implements RestClient {
         return data;
       }
 
+      // does not matter what you are sending
+      //
       return decodeBody;
 
       //
@@ -154,7 +157,7 @@ abstract base class RestClientBase implements RestClient {
       // when you will get what is going on here
       Error.throwWithStackTrace(
         ClientException(
-          message: 'Error occured during decoding',
+          message: 'Error occurred during decoding',
           statusCode: statusCode,
           cause: e,
         ),
