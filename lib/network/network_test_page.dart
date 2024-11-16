@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/network/repository_test.dart';
 import 'package:http/http.dart' as http;
@@ -33,7 +35,8 @@ class _NetworkTestPageState extends State<NetworkTestPage> {
             IconButton(
               onPressed: () async {
                 final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-                await _repo.getTestData(file: file);
+                if (file == null) return;
+                await _repo.getTestData(file: File(file.path));
               },
               icon: const Icon(Icons.file_copy),
             ),

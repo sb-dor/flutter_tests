@@ -28,6 +28,8 @@ final class RestClientHttp extends RestClientBase {
 
   final http.Client _client;
 
+  // for more information check out this link
+  // https://github.com/hawkkiller/sizzle_starter/blob/main/lib/src/core/rest_client/src/http/rest_client_http.dart
   @override
   Future<Map<String, Object?>?> send({
     required String path,
@@ -40,44 +42,25 @@ final class RestClientHttp extends RestClientBase {
     try {
       final uri = buildUri(path: path, queryParams: queryParams);
 
-      late http.BaseRequest request;
+      final request = http.MultipartRequest(method.name, uri);
 
-      // Check if files are included, and use MultipartRequest if needed
+      // Add files to the multipart request
+      // file's name will be added with it's field which you added from http.MultipartFile
+      // take a look inside network/http_rest_client/repository_test.dart
       if (files != null && files.isNotEmpty) {
-        final multipartRequest = http.MultipartRequest(method.name, uri);
+        request.files.addAll(files);
+      }
 
-        // Add files to the multipart request
-        // file's name will be added with it's field which you added from http.MultipartFile
-        // take a look inside network/http_rest_client/repository_test.dart
-        multipartRequest.files.addAll(files);
+      // Add other fields in the body to the multipart request
+      if (body != null) {
+        body.forEach((key, value) {
+          request.fields[key] = value.toString();
+        });
+      }
 
-        // Add headers if provided
-        if (headers != null) {
-          multipartRequest.headers.addAll(headers);
-        }
-
-        // Add other fields in the body to the multipart request
-        if (body != null) {
-          body.forEach((key, value) {
-            multipartRequest.fields[key] = value.toString();
-          });
-        }
-
-        request = multipartRequest;
-      } else {
-        // Fallback to regular Request for non-multipart data
-        final regularRequest = http.Request(method.name, uri);
-
-        if (body != null) {
-          regularRequest.bodyBytes = encodeBody(body);
-          regularRequest.headers['content-type'] = 'application/json;charset=utf-8';
-        }
-
-        if (headers != null) {
-          regularRequest.headers.addAll(headers);
-        }
-
-        request = regularRequest;
+      // Add headers if provided
+      if (headers != null) {
+        request.headers.addAll(headers);
       }
 
       final response = await _client.send(request);
@@ -100,6 +83,8 @@ final class RestClientHttp extends RestClientBase {
       // when you will get what is going on here
       final checkException = checkHttpException(e);
 
+      // the Error.throwWithStackTrace method is used to rethrow an exception
+      // while preserving the stack trace, which is important for debugging.
       if (checkException != null) {
         Error.throwWithStackTrace(checkException, stack);
       }

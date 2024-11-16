@@ -14,7 +14,7 @@ class RepositoryTest {
 
   //
 
-  Future<void> getTestData({XFile? file}) async {
+  Future<Map<String, Object?>?> getTestData({File? file}) async {
     const baseURL = "http://192.168.100.3:8000";
     const url = "/api/post/images/test";
 
@@ -23,14 +23,14 @@ class RepositoryTest {
     final data = await restClient.post(
       url,
       body: {
-        "frameworktest": "flutter",
+        "flutter_version": "flutter v3.5.4",
       },
       files: file != null
           ? [
               http.MultipartFile.fromBytes(
                 // this file's name will be added inside fields of multipartRequest
                 // take a look -> http/rest_client_http.dart file
-                'name_anything_you_want',
+                'name_of_the_file',
                 await file.readAsBytes(),
                 // this file's name will be added inside fields of multipartRequest
                 // take a look -> http/rest_client_http.dart file
@@ -41,6 +41,6 @@ class RepositoryTest {
           : null,
     );
 
-    debugPrint("test repository data coming: $data");
+    return data;
   }
 }

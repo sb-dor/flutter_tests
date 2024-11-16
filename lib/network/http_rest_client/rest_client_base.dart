@@ -14,6 +14,7 @@ abstract base class RestClientBase implements RestClient {
 
   RestClientBase({required String baseUrl}) : baseUrl = Uri.parse(baseUrl);
 
+  // encodes any data not to String but to List<int>
   final _jsonUTF8 = json.fuse(utf8);
 
   /// Sends a request to the server
@@ -147,7 +148,12 @@ abstract base class RestClientBase implements RestClient {
 
       // this code also checks whether everything went great in server
       // you can write your own logic like -> "success" : true
-      if (decodeBody case {"data": final Map<String, Object?> data}) {
+      if (decodeBody case {"data": final Map<String, Object?> data}) { /// <- take a look
+        /// remember that when data from server comes like this:
+        /// {"data" : {"another_data" : 1}}
+        ///  only  {"another_data" : 1} will be returned
+        /// 'cause the "if" statement that you wrote checks if "decodeBody" has "data"
+        /// it will return anything that is inside "data"
         return data;
       }
 
@@ -163,6 +169,9 @@ abstract base class RestClientBase implements RestClient {
       // TODO: write en error exception
       // write exceptions in the future
       // when you will get what is going on here
+
+      // the Error.throwWithStackTrace method is used to rethrow an exception
+      // while preserving the stack trace, which is important for debugging.
       Error.throwWithStackTrace(
         ClientException(
           message: 'Error occurred during decoding',
@@ -181,10 +190,16 @@ abstract base class RestClientBase implements RestClient {
     try {
       return _jsonUTF8.encode(body);
     } on Object catch (e, sTrace) {
-      throw Error(); // temp
       // TODO: write en error exception
       // write exceptions in the future
       // when you will get what is going on here
+
+      // the Error.throwWithStackTrace method is used to rethrow an exception
+      // while preserving the stack trace, which is important for debugging.
+      Error.throwWithStackTrace(
+        ClientException(message: 'Error occurred during encoding', cause: e),
+        sTrace,
+      );
     }
   }
 
