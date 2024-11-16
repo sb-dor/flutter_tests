@@ -23,10 +23,6 @@ void main() {
       test(
         'getTestDataFunctionTest',
         () async {
-          const estimatedData = <String, Object?>{
-            "data": {"hello": "world"}
-          };
-
           const estimatedDataInString = '{"data": {"hello": "world"}}';
 
           final clientTest = http_testing.MockClient(

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'rest_client.dart';
 import 'package:http/http.dart' as http;
 
-enum RequestType { GET, POST, PUT, DELETE, PATCH }
+enum RequestType { get, post, put, delete, patch }
 
 // this abstract class, it will not be used, only for implementation and for testing
 // classes that implementing this class will be used
@@ -37,7 +37,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: RequestType.GET,
+        method: RequestType.get,
         headers: headers,
         queryParams: queryParams,
       );
@@ -52,7 +52,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: RequestType.POST,
+        method: RequestType.post,
         body: body,
         headers: headers,
         queryParams: queryParams,
@@ -69,7 +69,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: RequestType.PUT,
+        method: RequestType.put,
         body: body,
         headers: headers,
         queryParams: queryParams,
@@ -84,7 +84,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: RequestType.DELETE,
+        method: RequestType.delete,
         headers: headers,
         queryParams: queryParams,
       );
@@ -98,7 +98,7 @@ abstract base class RestClientBase implements RestClient {
   }) =>
       send(
         path: path,
-        method: RequestType.PATCH,
+        method: RequestType.patch,
         body: body,
         headers: headers,
         queryParams: queryParams,
