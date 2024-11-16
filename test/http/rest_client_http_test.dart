@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_tests/network/http_rest_client/rest_client_base.dart';
@@ -15,7 +15,8 @@ void main() {
         () {
           final testClient = TestRestClientBase(baseUrl: 'test/url');
           final body = {"key": 1, "key2": 2, "key3": true, "key4": <dynamic>[]};
-          final encodedBody = testClient.encodeBody(body);
+          final encodedBody =
+              testClient.encodeBody(body); // taking only "encodeBody" function from this class
           debugPrint('encodedbody: $encodedBody');
           final expectedBody = jsonUTF8.encode(body);
           debugPrint("ecpectedbody: $expectedBody");
@@ -36,6 +37,7 @@ final class TestRestClientBase extends RestClientBase {
     Map<String, Object?>? body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
+    List<http.MultipartFile>? files,
   }) {
     // TODO: implement send
     throw UnimplementedError();

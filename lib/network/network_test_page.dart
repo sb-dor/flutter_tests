@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/network/repository_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 class NetworkTestPage extends StatefulWidget {
   const NetworkTestPage({super.key});
@@ -27,7 +28,17 @@ class _NetworkTestPageState extends State<NetworkTestPage> {
       ),
       body: RefreshIndicator(
         onRefresh: () async => _repo.getTestData(),
-        child: ListView(),
+        child: ListView(
+          children: [
+            IconButton(
+              onPressed: () async {
+                final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+                await _repo.getTestData(file: file);
+              },
+              icon: const Icon(Icons.file_copy),
+            ),
+          ],
+        ),
       ),
     );
   }

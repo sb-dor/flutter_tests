@@ -3,6 +3,7 @@ import 'package:flutter_tests/network/http_rest_client/http_exceptions/rest_clie
 import 'package:path/path.dart' as p;
 import 'package:flutter/foundation.dart';
 import 'rest_client.dart';
+import 'package:http/http.dart' as http;
 
 enum RequestType { GET, POST, PUT, DELETE, PATCH }
 
@@ -16,12 +17,15 @@ abstract base class RestClientBase implements RestClient {
   final _jsonUTF8 = json.fuse(utf8);
 
   /// Sends a request to the server
+  /// if you want to use this, you have to directly send the type of send function
+  /// better use function below this function -> [get], [post], [put], [delete], [patch] <-
   Future<Map<String, Object?>?> send({
     required String path,
     required RequestType method,
     Map<String, Object?>? body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
+    List<http.MultipartFile>? files,
   });
 
   @override
@@ -43,6 +47,7 @@ abstract base class RestClientBase implements RestClient {
     required Map<String, Object?> body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
+    List<http.MultipartFile>? files,
   }) =>
       send(
         path: path,
@@ -50,6 +55,7 @@ abstract base class RestClientBase implements RestClient {
         body: body,
         headers: headers,
         queryParams: queryParams,
+        files: files,
       );
 
   @override
@@ -58,6 +64,7 @@ abstract base class RestClientBase implements RestClient {
     required Map<String, Object?> body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
+    List<http.MultipartFile>? files,
   }) =>
       send(
         path: path,
@@ -65,6 +72,7 @@ abstract base class RestClientBase implements RestClient {
         body: body,
         headers: headers,
         queryParams: queryParams,
+        files: files,
       );
 
   @override

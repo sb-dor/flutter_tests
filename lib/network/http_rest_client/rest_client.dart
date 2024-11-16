@@ -1,3 +1,5 @@
+import 'package:http/http.dart' as http;
+
 abstract interface class RestClient {
   //
   /// sends a get request to the given [path]
@@ -13,6 +15,7 @@ abstract interface class RestClient {
     required Map<String, Object?> body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
+    List<http.MultipartFile>? files,
   });
 
   /// sends a post request to the given [path]
@@ -21,6 +24,7 @@ abstract interface class RestClient {
     required Map<String, Object?> body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
+    List<http.MultipartFile>? files,
   });
 
   /// sends a delete request to the given [path]

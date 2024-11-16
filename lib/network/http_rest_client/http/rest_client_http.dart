@@ -35,35 +35,59 @@ final class RestClientHttp extends RestClientBase {
     Map<String, Object?>? body,
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
+    List<http.MultipartFile>? files,
   }) async {
     try {
       final uri = buildUri(path: path, queryParams: queryParams);
-      final request = http.Request(method.name, uri);
 
-      if (body != null) {
-        request.bodyBytes = encodeBody(body);
-        request.headers['content-type'] = 'application/json;charset=utf-8';
-      }
+      late http.BaseRequest request;
 
-      if (headers != null) {
-        request.headers.addAll(headers);
+      // Check if files are included, and use MultipartRequest if needed
+      if (files != null && files.isNotEmpty) {
+        final multipartRequest = http.MultipartRequest(method.name, uri);
+
+        // Add files to the multipart request
+        // file's name will be added with it's field which you added from http.MultipartFile
+        // take a look inside network/http_rest_client/repository_test.dart
+        multipartRequest.files.addAll(files);
+
+        // Add headers if provided
+        if (headers != null) {
+          multipartRequest.headers.addAll(headers);
+        }
+
+        // Add other fields in the body to the multipart request
+        if (body != null) {
+          body.forEach((key, value) {
+            multipartRequest.fields[key] = value.toString();
+          });
+        }
+
+        request = multipartRequest;
+      } else {
+        // Fallback to regular Request for non-multipart data
+        final regularRequest = http.Request(method.name, uri);
+
+        if (body != null) {
+          regularRequest.bodyBytes = encodeBody(body);
+          regularRequest.headers['content-type'] = 'application/json;charset=utf-8';
+        }
+
+        if (headers != null) {
+          regularRequest.headers.addAll(headers);
+        }
+
+        request = regularRequest;
       }
 
       final response = await _client.send(request);
 
       final responseStream = await http.Response.fromStream(response);
 
-      // see what's sending server here
-      // all server messages, this kinda things
+      // Log the server's response body
       debugPrint("body is: ${responseStream.body}");
 
       return await decodeResponse(
-        // leave StringBodyResponse for the start (it shows server errors)
-        // when you finish requesting to the server
-        // change it to BytesResponseBody if you want
-
-        /// It’s better to convert through bytes and [UTF-8];
-        /// otherwise, you might encounter something like ‘unknown character code.’, "\" <- like this one
         BytesResponseBody(responseStream.bodyBytes),
         statusCode: response.statusCode,
       );
