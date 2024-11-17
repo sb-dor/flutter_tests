@@ -16,7 +16,7 @@ class BlocMultiProvideHelper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
         BlocProvider<HomeBloc>(
           create: (_) => compositionResult.dependencyContainer.homeBloc,
