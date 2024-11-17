@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tests/add_to_cart_test/feature/cart/bloc/cart_bloc.dart';
 import 'package:flutter_tests/add_to_cart_test/feature/cart/pages/cart_page.dart';
-import 'package:flutter_tests/add_to_cart_test/feature/home/data/repo/home_repository_impl.dart';
-import 'package:flutter_tests/add_to_cart_test/feature/home/data/source/home_datasource.dart';
 import 'package:flutter_tests/add_to_cart_test/feature/home/view/bloc/home_bloc.dart';
-import 'package:flutter_tests/add_to_cart_test/feature/initialization/logic/composition_root.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
