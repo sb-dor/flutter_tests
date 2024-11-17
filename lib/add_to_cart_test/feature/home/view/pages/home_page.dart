@@ -5,39 +5,17 @@ import 'package:flutter_tests/add_to_cart_test/feature/cart/pages/cart_page.dart
 import 'package:flutter_tests/add_to_cart_test/feature/home/data/repo/home_repository_impl.dart';
 import 'package:flutter_tests/add_to_cart_test/feature/home/data/source/home_datasource.dart';
 import 'package:flutter_tests/add_to_cart_test/feature/home/view/bloc/home_bloc.dart';
+import 'package:flutter_tests/add_to_cart_test/feature/initialization/logic/composition_root.dart';
 import 'package:http/http.dart' as http;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<HomeBloc>(
-          create: (_) {
-            final dataSource = HomeDataSourceNetwork(http.Client());
-            final repository = HomeRepositoryImpl(dataSource);
-            return HomeBloc(repository);
-          },
-        ),
-        BlocProvider(create: (_) => CartBloc()),
-      ],
-      child: const MaterialApp(
-        home: _HomePageHelper(),
-      ),
-    );
-  }
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageHelper extends StatefulWidget {
-  const _HomePageHelper({super.key});
-
-  @override
-  State<_HomePageHelper> createState() => _HomePageHelperState();
-}
-
-class _HomePageHelperState extends State<_HomePageHelper> {
+class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
