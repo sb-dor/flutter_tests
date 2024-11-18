@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tests/add_to_cart_test/core/models/product/product.dart';
 import 'package:flutter_tests/network/http_rest_client/http/rest_client_http.dart';
+import 'package:flutter_tests/network/http_rest_client/http_exceptions/rest_client_exception.dart';
 import 'package:flutter_tests/network/http_rest_client/rest_client_base.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,7 +28,12 @@ class HomeDataSourceNetwork implements HomeDatasource {
   Future<List<Product>> getProducts() async {
     final data = await _restClientBase.get(_recommended);
 
-    List<dynamic> list = data?['data'] as List;
+    final responseData = data?['data'];
+    if (data == null || data is! List) {
+      throw const WrongResponseTypeException(message: "Wrong response type");
+    }
+
+    List<dynamic> list = responseData as List;
 
     return list.map((e) => Product.fromJson(e)).toList();
   }

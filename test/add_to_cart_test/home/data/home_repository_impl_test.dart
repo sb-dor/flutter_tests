@@ -28,11 +28,15 @@ void main() {
 
           when(mockHomeDataSourceNetwork.getProducts()).thenAnswer((_) async => tempProducts);
 
-          final res = await homeRepoImpl.products();
-
-          debugPrint("res is: $res");
+          expectLater(homeRepoImpl.products(), completion(equals(tempProducts)));
         },
       );
+
+      test('should return empty list', () async {
+        when(mockHomeDataSourceNetwork.getProducts()).thenAnswer((_) async => List.empty());
+
+        expectLater(homeRepoImpl.products(), completion(isEmpty));
+      });
     },
   );
 }
