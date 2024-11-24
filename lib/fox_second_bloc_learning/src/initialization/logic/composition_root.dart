@@ -1,6 +1,5 @@
 // the main reason and the main concept of doing so
 // is that we want to achieve injections without getIt pattern (Service locator, which is good for service location)
-import 'package:flutter_tests/add_to_cart_test/feature/initialization/model/dependency_container.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_bloc.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_datasouce.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_repository.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/state_model
 import 'package:flutter_tests/fox_second_bloc_learning/src/post/data/post_datasource.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/post/data/post_repository.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/post/models/post.dart';
+import 'package:http/http.dart';
 
 final class CompositionRoot {
   Future<CompositionResult> composeResult() async {
@@ -29,28 +29,9 @@ final class CompositionResult {
 class DependencyFactory extends Factory<FoxDependencyContainer> {
   @override
   FoxDependencyContainer create() {
-    // you can create another class that creates
-    // authentication bloc with all necessary dependencies
-    final IAuthenticationDatasource authenticationDatasource = AuthenticationDatasourceImpl();
-    final IAuthenticationRepository authenticationRepository =
-        AuthenticationRepositoryImpl(authenticationDatasource);
-    final AuthenticationBloc authenticationBloc = AuthenticationBloc(
-      repository: authenticationRepository,
-    );
+    final authenticationBloc = AuthenticationBlocFactory().create();
 
-    //
-    final IPostDatasource postDatasource = PostDatasourceImpl();
-    final IPostRepository postRepository = PostRepositoryImpl(postDatasource);
-    const PostState initialState = PostState.initial(
-      PostStateModel(
-        posts: <Post>[],
-      ),
-    );
-
-    final postBloc = PostBloc(
-      postRepository: postRepository,
-      initialState: initialState,
-    );
+    final postBloc = PostBlocFactory().create();
 
     return FoxDependencyContainer(
       authenticationBloc: authenticationBloc,
@@ -65,4 +46,39 @@ abstract class Factory<T> {
 
 abstract class AsyncFactory<T> {
   Future<T> create();
+}
+
+class AuthenticationBlocFactory extends Factory<AuthenticationBloc> {
+  @override
+  AuthenticationBloc create() {
+    final IAuthenticationDatasource authenticationDatasource = AuthenticationDatasourceImpl(
+      Client(),
+    );
+    final IAuthenticationRepository authenticationRepository = AuthenticationRepositoryImpl(
+      authenticationDatasource,
+    );
+    return AuthenticationBloc(
+      repository: authenticationRepository,
+    );
+  }
+}
+
+class PostBlocFactory extends Factory<PostBloc> {
+  @override
+  PostBloc create() {
+    final IPostDatasource postDatasource = PostDatasourceImpl();
+    final IPostRepository postRepository = PostRepositoryImpl(
+      postDatasource,
+    );
+    const PostState initialState = PostState.initial(
+      PostStateModel(
+        posts: <Post>[],
+      ),
+    );
+
+    return PostBloc(
+      postRepository: postRepository,
+      initialState: initialState,
+    );
+  }
 }

@@ -46,4 +46,11 @@ class AuthenticatedUser implements UserEntity {
           {required T Function(AuthenticatedUser user) authenticated,
           required T Function() notAuthenticated}) =>
       authenticated(this);
+
+  factory AuthenticatedUser.fromJson(Map<String, Object?> json) => AuthenticatedUser(
+        uid: json['id'] as String,
+        displayName: json['name'] as String,
+        photoURL: json['photo'] as String,
+        email: json['email'] as String,
+      );
 }
