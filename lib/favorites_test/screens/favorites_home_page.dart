@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/favorites_test/models/favorites.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'favorites_page.dart';
 
