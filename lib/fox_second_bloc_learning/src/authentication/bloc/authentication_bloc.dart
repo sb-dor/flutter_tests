@@ -62,9 +62,9 @@ class AuthenticationBloc extends Bloc<AuthenticationBlocEvents, AuthenticationSt
     Emitter<AuthenticationStates> emit,
   ) async {
     try {
-      if (state.isInProgress) return;
+      if (state.loginProgress) return;
 
-      emit(AuthenticationStates.inProgress(user: state.user));
+      emit(AuthenticationStates.loginProgress(user: state.user));
       //
       debugPrint("checking login");
 
@@ -76,6 +76,7 @@ class AuthenticationBloc extends Bloc<AuthenticationBlocEvents, AuthenticationSt
         emit(const AuthenticationStates.unAuthenticated());
       }
     } on Object catch (error, stackTrace) {
+      debugPrint("maybe error: $error");
       emit(AuthenticationStates.error(user: state.user));
       rethrow;
     } finally {

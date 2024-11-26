@@ -25,9 +25,15 @@ sealed class AuthenticationStates with _$AuthenticationStates {
   // state again while it's in precess (you can call other events at that time)
   bool get isInProgress => maybeMap(orElse: () => false, inProgress: (_) => true);
 
+  bool get loginProgress => maybeMap(orElse: () => false, loginProgress: (_) => true);
+
   const AuthenticationStates._();
 
   const factory AuthenticationStates.authenticated(UserEntity user) = AuthenticatedState;
+
+  const factory AuthenticationStates.loginProgress({
+    @Default(UserEntity.notAuthenticated()) UserEntity user,
+  }) = LoginProgressState;
 
   const factory AuthenticationStates.inProgress({
     @Default(UserEntity.notAuthenticated()) UserEntity user,
