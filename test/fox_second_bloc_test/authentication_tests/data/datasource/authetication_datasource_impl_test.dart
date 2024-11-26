@@ -114,5 +114,24 @@ void main() {
         expectLater(authenticationRepo.logout(), completion(isFalse));
       },
     );
+
+    test(
+      'logoutTestForUnExpectedValueException',
+      () {
+        final mockedClient = http_testing.MockClient(
+          (_) async {
+            return http.Response(jsonEncode(""), 200);
+          },
+        );
+
+        final authenticationRepo = AuthenticationDatasourceImpl(mockedClient);
+
+        // throws error during decoding
+        expectLater(
+          authenticationRepo.logout(),
+          throwsA(isA<ClientException>()),
+        );
+      },
+    );
   });
 }

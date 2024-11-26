@@ -76,12 +76,23 @@ class AuthenticationDatasourceImpl implements IAuthenticationDatasource {
         WrongResponseTypeException(message: "Server responding with wrong type", cause: error),
         stackTrace,
       );
+    } catch (error, stackTrace) {
+      Error.throwWithStackTrace(error, stackTrace);
     }
   }
 
   @override
   Future<AuthenticatedUser?> checkAuth() async {
     await Future.delayed(const Duration(seconds: 1));
+
+    final RestClientBase restClientBase = RestClientHttp(baseUrl: _baseUrl, client: _client);
+
+    final json = await restClientBase.get(_testEndPoint);
+
+    if (json != null && json.containsKey('user') && json['user'] != null) {
+      return AuthenticatedUser.fromJson(json['user'] as Map<String, Object?>);
+    }
+
     return null;
   }
 }
