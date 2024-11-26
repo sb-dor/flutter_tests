@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:fake_async/fake_async.dart' as async;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_datasouce.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models/user_entity.dart';
 import 'package:flutter_tests/network/http_rest_client/http_exceptions/rest_client_exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as http_testing;
@@ -28,6 +29,10 @@ void main() {
   };
 
   const data3 = <String, Object?>{};
+
+  const data4 = <String, Object?>{
+    "data": {"user": null},
+  };
 
   group('AuthenticationDatasourceImplTest', () {
     test(
@@ -129,6 +134,101 @@ void main() {
         // throws error during decoding
         expectLater(
           authenticationRepo.logout(),
+          throwsA(isA<ClientException>()),
+        );
+      },
+    );
+
+    test(
+      'checkAuthTestNoUser',
+      () {
+        final mockClient = http_testing.MockClient(
+          (_) async => http.Response(
+            jsonEncode(data4),
+            200,
+          ),
+        );
+
+        final authenticationDatasource = AuthenticationDatasourceImpl(mockClient);
+
+        expectLater(
+          authenticationDatasource.checkAuth(),
+          completion(isNull),
+        );
+      },
+    );
+
+    test(
+      'checkAuthTestUserNoUser2',
+          () {
+        final mockClient = http_testing.MockClient(
+              (_) async => http.Response(
+            jsonEncode(data3),
+            200,
+          ),
+        );
+
+        final authenticationDatasource = AuthenticationDatasourceImpl(mockClient);
+
+        expectLater(
+          authenticationDatasource.checkAuth(),
+          completion(isNull),
+        );
+      },
+    );
+
+    test(
+      'checkAuthTestUserNoUser3',
+          () {
+        final mockClient = http_testing.MockClient(
+              (_) async => http.Response(
+            jsonEncode(data2),
+            200,
+          ),
+        );
+
+        final authenticationDatasource = AuthenticationDatasourceImpl(mockClient);
+
+        expectLater(
+          authenticationDatasource.checkAuth(),
+          completion(isNull),
+        );
+      },
+    );
+
+    test(
+      'checkAuthTestUserAuthenticated',
+          () {
+        final mockClient = http_testing.MockClient(
+              (_) async => http.Response(
+            jsonEncode(data),
+            200,
+          ),
+        );
+
+        final authenticationDatasource = AuthenticationDatasourceImpl(mockClient);
+
+        expectLater(
+          authenticationDatasource.checkAuth(),
+          completion(isA<UserEntity>()),
+        );
+      },
+    );
+
+    test(
+      'checkAuthTestUserBadResponse',
+          () {
+        final mockClient = http_testing.MockClient(
+              (_) async => http.Response(
+            jsonEncode("Bad response"),
+            200,
+          ),
+        );
+
+        final authenticationDatasource = AuthenticationDatasourceImpl(mockClient);
+
+        expectLater(
+          authenticationDatasource.checkAuth(),
           throwsA(isA<ClientException>()),
         );
       },
