@@ -83,6 +83,14 @@ void main() {
             (_) async => null,
           );
 
+          // the reason was that initial state for AuthenticationBloc was inProgress()
+          // but when you add login event again, inside there is a if statement that checks
+          // whether it's in progress or not, that is why I created another state "LoginInProgress"
+          // now it's working fine
+
+          // NOTE! remember for test purpose, you better pass initial state through
+          // constructor for the bloc, it will be easier to test
+
           bloc.add(
             const AuthenticationBlocEvents.logIn(email: testEmail, password: testPassword),
           );
@@ -92,6 +100,87 @@ void main() {
           const AuthenticationStates.loginProgress(),
           // Successful login
           const AuthenticationStates.unAuthenticated(),
+        ],
+      );
+
+      blocTest(
+        'emits [loginProcess, errorState] when login failed',
+        build: () => authenticationBloc,
+        act: (bloc) {
+          when(
+            mockAuthenticationDatasourceImpl.login(
+              email: testEmail,
+              password: testPassword,
+            ),
+          ).thenThrow(Exception());
+
+          // because of that logic throws an error
+          // we can not handle that properly
+          // that is why I removed "rethrow" from _login function
+          // maybe, there are another good solutions for that
+          // but I haven't found those yet
+          bloc.add(
+            const AuthenticationBlocEvents.logIn(
+              email: testEmail,
+              password: testPassword,
+            ),
+          );
+        },
+        expect: () => [
+          const AuthenticationStates.loginProgress(),
+          const AuthenticationStates.error(),
+        ],
+      );
+
+      //
+      blocTest(
+        'emits [inProgress, unAuthenticated] when logout event works',
+        build: () => authenticationBloc,
+        act: (bloc) {
+          when(
+            mockAuthenticationDatasourceImpl.logout(),
+          ).thenAnswer(
+            (_) async => true,
+          );
+
+          bloc.add(const AuthenticationBlocEvents.logOut());
+        },
+        expect: () => <AuthenticationStates>[
+          const AuthenticationStates.inProgress(),
+          const AuthenticationStates.unAuthenticated(),
+        ],
+      );
+
+      blocTest(
+        'emits [inProgress, error] when logout event works',
+        build: () => authenticationBloc,
+        act: (bloc) {
+          when(
+            mockAuthenticationDatasourceImpl.logout(),
+          ).thenThrow(Exception());
+
+          bloc.add(const AuthenticationBlocEvents.logOut());
+        },
+        expect: () => <AuthenticationStates>[
+          const AuthenticationStates.inProgress(),
+          const AuthenticationStates.error(),
+        ],
+      );
+      
+      //
+      blocTest(
+        'emits [inProgress, error] when logout event works and logout was not successful',
+        build: () => authenticationBloc,
+        act: (bloc) {
+          when(
+            mockAuthenticationDatasourceImpl.logout(),
+          ).thenAnswer((_) async => false);
+
+          bloc.add(const AuthenticationBlocEvents.logOut());
+        },
+        expect: () => <AuthenticationStates>[
+          const AuthenticationStates.inProgress(),
+          const AuthenticationStates.error(),
         ],
       );
     },

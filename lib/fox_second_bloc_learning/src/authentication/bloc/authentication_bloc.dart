@@ -78,9 +78,9 @@ class AuthenticationBloc extends Bloc<AuthenticationBlocEvents, AuthenticationSt
     } on Object catch (error, stackTrace) {
       debugPrint("maybe error: $error");
       emit(AuthenticationStates.error(user: state.user));
-      rethrow;
+      // rethrow;
     } finally {
-      //
+      // write something here
     }
   }
 
@@ -93,13 +93,17 @@ class AuthenticationBloc extends Bloc<AuthenticationBlocEvents, AuthenticationSt
 
       debugPrint("checking logout");
 
-      await _repository.logout();
+      final logout = await _repository.logout();
 
-      emit(const AuthenticationStates.unAuthenticated(user: UserEntity.notAuthenticated()));
+      if (logout) {
+        emit(const AuthenticationStates.unAuthenticated(user: UserEntity.notAuthenticated()));
+      } else {
+        emit(AuthenticationStates.error(user: state.user));
+      }
       //
     } on Object catch (error, stackTrace) {
       emit(AuthenticationStates.error(user: state.user));
-      rethrow;
+      // rethrow;
     } finally {
       //
     }
