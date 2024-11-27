@@ -31,8 +31,102 @@ void main() {
     },
   );
 
+  tearDown(() {
+    authenticationBloc.close();
+  });
+
+  // you can write your own test without using any package like
+  // bloc_test
   group(
-    'AuthenticationBlocTesting',
+    'AuthenticationBlocTestingWithoutBlocTestPackage',
+    () {
+      test(
+        'emits [inProgress, authenticated] when checkAuth is successful',
+        () {
+          when(mockAuthenticationDatasourceImpl.checkAuth()).thenAnswer(
+            (_) async => authenticatedUser,
+          );
+
+          authenticationBloc.add(const AuthenticationBlocEvents.checkAuth());
+
+          expectLater(
+            authenticationBloc.stream,
+            emitsInAnyOrder([
+              const AuthenticationStates.inProgress(),
+              AuthenticationStates.authenticated(authenticatedUser),
+            ]),
+          );
+        },
+      );
+
+      //
+      test(
+        'emits [inProgress, notAuthenticated] when checkAuth is successful',
+        () {
+          when(mockAuthenticationDatasourceImpl.checkAuth()).thenAnswer(
+            (_) async => null,
+          );
+
+          authenticationBloc.add(const AuthenticationBlocEvents.checkAuth());
+
+          expectLater(
+            authenticationBloc.stream,
+            emitsInAnyOrder([
+              const AuthenticationStates.inProgress(),
+              const AuthenticationStates.unAuthenticated(),
+            ]),
+          );
+        },
+      );
+
+      //
+      test(
+        'emits [inProgress, noUser] when login is successful',
+        () {
+          when(
+            mockAuthenticationDatasourceImpl.login(email: testEmail, password: testPassword),
+          ).thenAnswer((_) async => null);
+
+          authenticationBloc.add(
+            const AuthenticationBlocEvents.logIn(email: testEmail, password: testPassword),
+          );
+
+          expectLater(
+            authenticationBloc.stream,
+            emitsInAnyOrder([
+              const AuthenticationStates.loginProgress(),
+              const AuthenticationStates.unAuthenticated(),
+            ]),
+          );
+        },
+      );
+
+      //
+      test(
+        'emits [inProgress, authenticated] when login is successful',
+        () {
+          when(
+            mockAuthenticationDatasourceImpl.login(email: testEmail, password: testPassword),
+          ).thenAnswer((_) async => authenticatedUser);
+
+          authenticationBloc.add(
+            const AuthenticationBlocEvents.logIn(email: testEmail, password: testPassword),
+          );
+
+          expectLater(
+            authenticationBloc.stream,
+            emitsInAnyOrder([
+              const AuthenticationStates.loginProgress(),
+              AuthenticationStates.authenticated(authenticatedUser),
+            ]),
+          );
+        },
+      );
+    },
+  );
+
+  group(
+    'AuthenticationBlocTestingWithBlocTestPackage',
     () {
       blocTest<AuthenticationBloc, AuthenticationStates>(
         'emits [inProgress, authenticated] when checkAuth is successful',
