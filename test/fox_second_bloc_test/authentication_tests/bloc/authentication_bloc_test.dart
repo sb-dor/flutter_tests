@@ -9,7 +9,7 @@ import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../data/repository/athentication_repository_impl_test.mocks.dart';
+import 'authentication_bloc_test.mocks.dart';
 
 @GenerateMocks([AuthenticationDatasourceImpl, AuthenticatedUser])
 void main() {
@@ -166,7 +166,7 @@ void main() {
           const AuthenticationStates.error(),
         ],
       );
-      
+
       //
       blocTest(
         'emits [inProgress, error] when logout event works and logout was not successful',
