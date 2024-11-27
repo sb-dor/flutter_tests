@@ -2,12 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'state_model/post_state_model.dart';
+
 part 'post_state.freezed.dart';
 
 @immutable
 @freezed
 sealed class PostState with _$PostState {
   const PostState._();
+
+  // checks only your preferred state and returns anything that related to return function
+  // other functions will not be considered and you can return anything you want
+  // also you can create like this for each state
+  // in order to not emit same state again and again
   //
   // String? get path => when(
   //       initial: () => null,
@@ -32,10 +38,6 @@ sealed class PostState with _$PostState {
   //       successful: (text, _) => text,
   //     );
 
-  // checks only your preferred state and returns anything that related to return function
-  // other functions will not be considered and you can return anything you want
-  // also you can create like this for each state
-  // in order to not emit same state again and again
   //
   // NOTE!
   // if you want to use transformers with freezed
