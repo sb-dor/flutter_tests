@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/data/post_repository.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/models/post.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/data/post_repository.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/models/post.dart';
 import 'post_event.dart';
 import 'post_state.dart';
 

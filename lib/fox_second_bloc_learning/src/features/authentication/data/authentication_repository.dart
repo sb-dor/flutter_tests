@@ -1,5 +1,5 @@
 
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models/user_entity.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/models/user_entity.dart';
 
 import 'authentication_datasouce.dart';
 

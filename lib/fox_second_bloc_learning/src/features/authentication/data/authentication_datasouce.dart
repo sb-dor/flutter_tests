@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models/user_entity.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/models/user_entity.dart';
 import 'package:flutter_tests/network/http_rest_client/http/rest_client_http.dart';
 import 'package:flutter_tests/network/http_rest_client/http_exceptions/rest_client_exception.dart';
 import 'package:flutter_tests/network/http_rest_client/rest_client_base.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/models/post.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/models/post.dart';
 
 @immutable
 class PostWidget extends StatelessWidget {

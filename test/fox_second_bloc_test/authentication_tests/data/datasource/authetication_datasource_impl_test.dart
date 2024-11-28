@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:fake_async/fake_async.dart' as async;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_datasouce.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models/user_entity.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/data/authentication_datasouce.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/models/user_entity.dart';
 import 'package:flutter_tests/network/http_rest_client/http_exceptions/rest_client_exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as http_testing;

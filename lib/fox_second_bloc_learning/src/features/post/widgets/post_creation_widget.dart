@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/post_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/post_event.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/post_state.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/models/post.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_event.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_state.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/models/post.dart';
 
 class PostCreationWidget extends StatefulWidget {
   const PostCreationWidget({super.key});

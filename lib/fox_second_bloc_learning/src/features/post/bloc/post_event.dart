@@ -1,4 +1,4 @@
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/models/post.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/models/post.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'post_state.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models/user_entity.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/models/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'authentication_states.freezed.dart';

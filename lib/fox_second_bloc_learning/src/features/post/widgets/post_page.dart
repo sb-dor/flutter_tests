@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_events.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_states.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/widget/authentication_widget.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/post_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/post_state.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_events.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_states.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/widget/authentication_widget.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_state.dart';
 
 import 'post_creation_widget.dart';
 import 'post_widget.dart';

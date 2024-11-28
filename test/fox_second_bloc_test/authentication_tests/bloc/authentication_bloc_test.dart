@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_events.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_states.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_datasouce.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_repository.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models/user_entity.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_events.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_states.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/data/authentication_datasouce.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/data/authentication_repository.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/models/user_entity.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

@@ -1,15 +1,15 @@
 // the main reason and the main concept of doing so
 // is that we want to achieve injections without getIt pattern (Service locator, which is good for service location)
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_datasouce.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_repository.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/initialization/model/fox_dependency_container.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/post_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/post_state.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/bloc/state_model/post_state_model.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/data/post_datasource.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/data/post_repository.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/models/post.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/data/authentication_datasouce.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/data/authentication_repository.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/initialization/model/fox_dependency_container.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_state.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/state_model/post_state_model.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/data/post_datasource.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/data/post_repository.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/models/post.dart';
 import 'package:http/http.dart';
 
 final class CompositionRoot {

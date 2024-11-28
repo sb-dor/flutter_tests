@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_events.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/bloc/authentication_states.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/post/widgets/post_page.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/core/constants.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_events.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_states.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/widgets/post_page.dart';
 
 class AuthenticationWidget extends StatefulWidget {
   const AuthenticationWidget({super.key});
@@ -28,6 +29,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
       ),
       body: BlocConsumer<AuthenticationBloc, AuthenticationStates>(
         builder: (context, state) {
+          debugPrint("state is: ${state.runtimeType}");
           return SizedBox.expand(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,6 +39,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                   const CircularProgressIndicator()
                 else
                   TextButton(
+                    key: const ValueKey(authenticationTextButtonKey),
                     onPressed: () {
                       context.read<AuthenticationBloc>().add(
                             const LogInAuthenticationEvent(

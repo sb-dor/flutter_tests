@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/widget/authentication_widget.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/initialization/widget/app_widget.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/initialization/widget/multi_bp_scope.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/widget/authentication_widget.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/initialization/widget/app_widget.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/initialization/widget/multi_bp_scope.dart';
 
 import 'composition_root.dart';
 

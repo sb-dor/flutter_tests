@@ -1,8 +1,8 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/data/authentication_repository.dart';
-import 'package:flutter_tests/fox_second_bloc_learning/src/authentication/models/user_entity.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/data/authentication_repository.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/models/user_entity.dart';
 import 'authentication_events.dart';
 import 'authentication_states.dart';
 
@@ -120,13 +120,18 @@ class AuthenticationBloc extends Bloc<AuthenticationBlocEvents, AuthenticationSt
       // await _repository.logout();
       final checkAuth = await _repository.checkAuth();
 
+      debugPrint("checking auth 2 | $checkAuth");
+
       if (checkAuth != null) {
         emit(AuthenticationStates.authenticated(checkAuth));
+        debugPrint("checking auth 3 | $checkAuth | ${state.runtimeType}");
       } else {
         emit(const AuthenticationStates.unAuthenticated(user: UserEntity.notAuthenticated()));
       }
+
       //
     } on Object catch (error, stackTrace) {
+      debugPrint("something happend here ?");
       emit(AuthenticationStates.error(user: state.user));
       rethrow;
     } finally {
