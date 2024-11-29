@@ -98,7 +98,7 @@ void main() {
 
       //
       testWidgets(
-        'AuthenticationWidgetTextButtonClickAndAuthTest',
+        'AuthenticationWidgetAlreadyAuthenticatedTest',
         (tester) async {
           when(mockAuthenticationDatasourceImpl.checkAuth()).thenAnswer(
             (_) async => mockedAuthenticatedUser,

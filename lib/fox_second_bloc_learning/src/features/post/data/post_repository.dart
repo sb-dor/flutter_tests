@@ -16,8 +16,5 @@ class PostRepositoryImpl implements IPostRepository {
   Future<bool> savePost() => _postDatasource.savePost();
 
   @override
-  Future<void> addText() {
-    // TODO: implement addText
-    throw UnimplementedError();
-  }
+  Future<void> addText() => _postDatasource.addText();
 }
