@@ -14,7 +14,6 @@ import 'post_bloc_test.mocks.dart';
 @GenerateMocks([PostDatasourceImpl])
 void main() {
   final Post post = Post(title: "test", content: "test", author: "test");
-  const String testText = "test";
   late MockPostDatasourceImpl mockPostDatasourceImpl;
   late IPostRepository iPostRepository;
   late PostBloc postBloc;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/core/constants.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_bloc.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_event.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/bloc/post_state.dart';
@@ -32,6 +33,7 @@ class _PostCreationWidgetState extends State<PostCreationWidget> {
         title: const Text("Post creation page"),
       ),
       floatingActionButton: FloatingActionButton(
+        key: const ValueKey(savePostFloatingButtonPostPage),
         onPressed: () {
           final post = Post(
             title: _titleController.text.trim(),
@@ -50,6 +52,7 @@ class _PostCreationWidgetState extends State<PostCreationWidget> {
               );
             }
             if (context.mounted && state is PostSuccessfulState) {
+              debugPrint("here working hh");
               Navigator.pop(context);
             }
           },
@@ -73,16 +76,19 @@ class _PostCreationWidgetState extends State<PostCreationWidget> {
         child: Column(
           children: [
             TextField(
+              key: const ValueKey(titleTextControllerKey),
               controller: _titleController,
               decoration: const InputDecoration(hintText: "Title"),
             ),
             const SizedBox(height: 10),
             TextField(
+              key: const ValueKey(contentTextControllerKey),
               controller: _contentController,
               decoration: const InputDecoration(hintText: "Content"),
             ),
             const SizedBox(height: 10),
             TextField(
+              key: const ValueKey(authorTextControllerKey),
               controller: _authorController,
               decoration: const InputDecoration(hintText: "Author"),
             ),

@@ -106,10 +106,14 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           posts: listFromCopiedList,
         );
 
+        debugPrint("save post is working: ${savePost} | ${copiedState.posts.length} | ${event.post.id}");
+
         emit(PostSuccessfulState(copiedState));
       } else {
         emit(event.sendError(state: state));
       }
+
+
       //
     } catch (error, stackTrace) {
       debugPrint("add post error: $error");

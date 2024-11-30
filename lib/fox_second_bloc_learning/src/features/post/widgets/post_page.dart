@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tests/fox_second_bloc_learning/src/core/constants.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_bloc.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_events.dart';
 import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/bloc/authentication_states.dart';
@@ -60,6 +61,7 @@ class _State extends State<PostPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        key: const ValueKey(addPostFloatingButtonPostPage),
         onPressed: () async {
           Navigator.push(
             context,
