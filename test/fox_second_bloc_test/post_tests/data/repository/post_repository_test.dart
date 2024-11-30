@@ -106,7 +106,7 @@ void main() {
           when(mockPostDatasourceImpl.addText(addTempText)).thenAnswer((_) async => true);
 
           expectLater(
-            postRepositoryImpl.addText(addTempText),
+             postRepositoryImpl.addText(addTempText),
             completion(isTrue),
           );
 
