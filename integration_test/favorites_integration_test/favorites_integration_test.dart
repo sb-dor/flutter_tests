@@ -6,6 +6,10 @@ import 'package:integration_test/integration_test.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+
   late Favorites provider;
 
   setUpAll(() {
@@ -15,8 +19,7 @@ void main() {
   group(
     'Testing App',
         () {
-      final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-      binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+
 
       testWidgets(
         'Favorites operations test',

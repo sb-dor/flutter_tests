@@ -66,7 +66,9 @@ class AuthenticationBlocFactory extends Factory<AuthenticationBloc> {
 class PostBlocFactory extends Factory<PostBloc> {
   @override
   PostBloc create() {
-    final IPostDatasource postDatasource = PostDatasourceImpl();
+    final IPostDatasource postDatasource = PostDatasourceImpl(
+      Client(),
+    );
     final IPostRepository postRepository = PostRepositoryImpl(
       postDatasource,
     );

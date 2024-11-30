@@ -94,7 +94,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
       emit(event.sending(state: state));
 
-      final savePost = await _postRepository.savePost();
+      final savePost = await _postRepository.savePost(event.post.toJson());
 
       if (savePost) {
         

@@ -16,4 +16,14 @@ class Post {
     this.attachedFile,
   })  : id = const Uuid().v4(),
         datetime = DateTime.now();
+
+  Map<String, Object?> toJson() {
+    return {
+      "id": id,
+      "title": title,
+      "content": content,
+      "datetime": datetime,
+      "author": author,
+    };
+  }
 }

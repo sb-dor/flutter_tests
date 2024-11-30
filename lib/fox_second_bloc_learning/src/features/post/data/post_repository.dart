@@ -2,7 +2,7 @@
 import 'post_datasource.dart';
 
 abstract interface class IPostRepository {
-  Future<bool> savePost();
+  Future<bool> savePost(Map<String, Object?> postData);
 
   Future<void> addText();
 }
@@ -13,7 +13,7 @@ class PostRepositoryImpl implements IPostRepository {
   PostRepositoryImpl(this._postDatasource);
 
   @override
-  Future<bool> savePost() => _postDatasource.savePost();
+  Future<bool> savePost(Map<String, Object?> postData) => _postDatasource.savePost(postData);
 
   @override
   Future<void> addText() => _postDatasource.addText();
