@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov.info - fox_second_bloc_learning/src/features/authentication/bloc/authentication_states.dart</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory fox_second_bloc_learning/src/features/authentication/bloc">fox_second_bloc_learning/src/features/authentication/bloc</a> - authentication_states.dart</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">28.6&nbsp;%</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">2</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2024-11-30 12:53:05</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : import 'package:flutter_tests/fox_second_bloc_learning/src/features/authentication/models/user_entity.dart';</span>
+<span id="L2"><span class="lineNum">       2</span>              : import 'package:freezed_annotation/freezed_annotation.dart';</span>
+<span id="L3"><span class="lineNum">       3</span>              : </span>
+<span id="L4"><span class="lineNum">       4</span>              : part 'authentication_states.freezed.dart';</span>
+<span id="L5"><span class="lineNum">       5</span>              : </span>
+<span id="L6"><span class="lineNum">       6</span>              : @freezed</span>
+<span id="L7"><span class="lineNum">       7</span>              : sealed class AuthenticationStates with _$AuthenticationStates {</span>
+<span id="L8"><span class="lineNum">       8</span>              :   // map comes from inside</span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaUNC">           0 :   UserEntity? get authenticatedUser =&gt; maybeMap(</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaUNC">           0 :         authenticated: (state) =&gt; state.user,</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaUNC">           0 :         inProgress: (state) =&gt; state.user,</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaUNC">           0 :         orElse: () =&gt; null,</span></span>
+<span id="L13"><span class="lineNum">      13</span>              :       );</span>
+<span id="L14"><span class="lineNum">      14</span>              : </span>
+<span id="L15"><span class="lineNum">      15</span>              :   // checks only your preferred state and returns anything that related to return function</span>
+<span id="L16"><span class="lineNum">      16</span>              :   // other functions will not be considered and you can return anything you want</span>
+<span id="L17"><span class="lineNum">      17</span>              :   // also you can create like this for each state</span>
+<span id="L18"><span class="lineNum">      18</span>              :   // in order to not emit same state again and again</span>
+<span id="L19"><span class="lineNum">      19</span>              :   //</span>
+<span id="L20"><span class="lineNum">      20</span>              :   // NOTE!</span>
+<span id="L21"><span class="lineNum">      21</span>              :   // if you want to use transformers with freezed</span>
+<span id="L22"><span class="lineNum">      22</span>              :   // the best solution for transformer is &quot;concurrent()&quot;</span>
+<span id="L23"><span class="lineNum">      23</span>              :   // but you have to created getters for each state (optional, one is enough)</span>
+<span id="L24"><span class="lineNum">      24</span>              :   // in order to check whether specific state is working and you can not to emit particular</span>
+<span id="L25"><span class="lineNum">      25</span>              :   // state again while it's in precess (you can call other events at that time)</span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaUNC">           0 :   bool get isInProgress =&gt; maybeMap(orElse: () =&gt; false, inProgress: (_) =&gt; true);</span></span>
+<span id="L27"><span class="lineNum">      27</span>              : </span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           6 :   bool get loginProgress =&gt; maybeMap(orElse: () =&gt; false, loginProgress: (_) =&gt; true);</span></span>
+<span id="L29"><span class="lineNum">      29</span>              : </span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           5 :   const AuthenticationStates._();</span></span>
+<span id="L31"><span class="lineNum">      31</span>              : </span>
+<span id="L32"><span class="lineNum">      32</span>              :   const factory AuthenticationStates.authenticated(UserEntity user) = AuthenticatedState;</span>
+<span id="L33"><span class="lineNum">      33</span>              : </span>
+<span id="L34"><span class="lineNum">      34</span>              :   const factory AuthenticationStates.loginProgress({</span>
+<span id="L35"><span class="lineNum">      35</span>              :     @Default(UserEntity.notAuthenticated()) UserEntity user,</span>
+<span id="L36"><span class="lineNum">      36</span>              :   }) = LoginProgressState;</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              :   const factory AuthenticationStates.inProgress({</span>
+<span id="L39"><span class="lineNum">      39</span>              :     @Default(UserEntity.notAuthenticated()) UserEntity user,</span>
+<span id="L40"><span class="lineNum">      40</span>              :   }) = InProgressAuthenticationState;</span>
+<span id="L41"><span class="lineNum">      41</span>              : </span>
+<span id="L42"><span class="lineNum">      42</span>              :   const factory AuthenticationStates.unAuthenticated({</span>
+<span id="L43"><span class="lineNum">      43</span>              :     @Default(UserEntity.notAuthenticated()) UserEntity user,</span>
+<span id="L44"><span class="lineNum">      44</span>              :   }) = UnAuthenticated;</span>
+<span id="L45"><span class="lineNum">      45</span>              : </span>
+<span id="L46"><span class="lineNum">      46</span>              :   const factory AuthenticationStates.error({</span>
+<span id="L47"><span class="lineNum">      47</span>              :     @Default(UserEntity.notAuthenticated()) UserEntity user,</span>
+<span id="L48"><span class="lineNum">      48</span>              :     String? message,</span>
+<span id="L49"><span class="lineNum">      49</span>              :   }) = ErrorAuthenticatedState;</span>
+<span id="L50"><span class="lineNum">      50</span>              : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.2-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

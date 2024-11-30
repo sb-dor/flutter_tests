@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 abstract interface class IPostDatasource {
   Future<bool> savePost(Map<String, Object?> postData);
 
-  Future<void> addText();
+  Future<bool> addText(String text);
 }
 
 class PostDatasourceImpl implements IPostDatasource {
@@ -31,26 +31,42 @@ class PostDatasourceImpl implements IPostDatasource {
         body: postData,
       );
 
-      if (data != null && data.containsKey('success') && data['success'] is bool) {
+      if (data == null) return false;
+
+      if (data.containsKey('success') && data['success'] is bool) {
         return data['success'] as bool;
       }
 
       return false;
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        const WrongResponseTypeException(message: "Wrong response from server"),
+        error,
         stackTrace,
       );
     }
   }
 
   @override
-  Future<void> addText() async {
+  Future<bool> addText(String text) async {
     try {
       await Future.delayed(const Duration(seconds: 5));
+
+      final data = await _restClientBase.post(
+        _testEndPoint,
+        body: {"test_test" : text},
+      );
+
+      if (data == null) return false;
+
+      if (data.containsKey('success') && data['success'] is bool) {
+        return data['success'] as bool;
+      }
+
+      return false;
+
     } catch (error, stackTrace) {
       Error.throwWithStackTrace(
-        const WrongResponseTypeException(message: "Wrong response from server"),
+        error,
         stackTrace,
       );
     }

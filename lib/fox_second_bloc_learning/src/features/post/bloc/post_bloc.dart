@@ -43,7 +43,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     try {
       // emit(event.addingText());
 
-      await _postRepository.addText();
+      await _postRepository.addText("");
       // logic here
       //
       // emit(event.hasText());

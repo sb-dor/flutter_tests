@@ -9,6 +9,7 @@ import 'post_repository_test.mocks.dart';
 
 @GenerateMocks([PostDatasourceImpl])
 void main() {
+  const String addTempText = "tempText";
   late PostRepositoryImpl postRepositoryImpl;
   late MockPostDatasourceImpl mockPostDatasourceImpl;
 
@@ -81,14 +82,49 @@ void main() {
       );
 
       //
+    },
+  );
+
+  group(
+    'PostRepositoryAddText',
+    () {
+      // FOR ASYNC VOID FUNCTIONS
+      // test(
+      //   'testAddTextFunctionRuns',
+      //       () {
+      //     when(mockPostDatasourceImpl.addText(addTempText)).thenAnswer((_) async {});
+      //
+      //     postRepositoryImpl.addText(addTempText);
+      //
+      //     verify(mockPostDatasourceImpl.addText(addTempText)).called(1);
+      //   },
+      // );
+
       test(
-        'testAddTextFunctionRuns',
-        () {
-          when(mockPostDatasourceImpl.addText()).thenAnswer((_) async {});
+        'testAddTextFunctionEndsSuccessfully',
+        () async {
+          when(mockPostDatasourceImpl.addText(addTempText)).thenAnswer((_) async => true);
 
-          postRepositoryImpl.addText();
+          expectLater(
+            postRepositoryImpl.addText(addTempText),
+            completion(isTrue),
+          );
 
-          verify(mockPostDatasourceImpl.addText()).called(1);
+          verify(mockPostDatasourceImpl.addText(addTempText)).called(1);
+        },
+      );
+
+      test(
+        'testAddTextFunctionEndsWithFail',
+        () async {
+          when(mockPostDatasourceImpl.addText(addTempText)).thenAnswer((_) async => false);
+
+          expectLater(
+            postRepositoryImpl.addText(addTempText),
+            completion(isFalse),
+          );
+
+          verify(mockPostDatasourceImpl.addText(addTempText)).called(1);
         },
       );
 
@@ -96,16 +132,16 @@ void main() {
       test(
         'testAddTextFunctionThrowsAnError',
         () async {
-          when(mockPostDatasourceImpl.addText()).thenThrow(
+          when(mockPostDatasourceImpl.addText(addTempText)).thenThrow(
             const WrongResponseTypeException(message: ''),
           );
 
           expectLater(
-            () async => await postRepositoryImpl.addText(),
+            () async => await postRepositoryImpl.addText(addTempText),
             throwsA(isA<WrongResponseTypeException>()),
           );
 
-          verify(mockPostDatasourceImpl.addText()).called(1);
+          verify(mockPostDatasourceImpl.addText(addTempText)).called(1);
         },
       );
     },

@@ -47,6 +47,10 @@ void main() {
           );
 
           expectLater(checkLogin, completion(null));
+
+          verify(
+            mockAuthenticationDatasourceImpl.login(email: testEmail, password: testPassword),
+          ).called(1);
         },
       );
 
@@ -69,6 +73,10 @@ void main() {
           );
 
           expectLater(checkLogin, completion(isNotNull));
+
+          verify(
+            mockAuthenticationDatasourceImpl.login(email: testEmail, password: testPassword),
+          ).called(1);
         },
       );
 
@@ -84,6 +92,8 @@ void main() {
           final logout = authenticationRepositoryImpl.logout();
 
           expectLater(logout, completion(isFalse));
+
+          verify(mockAuthenticationDatasourceImpl.logout()).called(1);
         },
       );
 
@@ -99,36 +109,42 @@ void main() {
           final logout = authenticationRepositoryImpl.logout();
 
           expectLater(logout, completion(isTrue));
+
+          verify(mockAuthenticationDatasourceImpl.logout()).called(1);
         },
       );
 
       test(
         'authenticationCheckAuthenticationNull',
-        () {
+        () async {
           when(
             mockAuthenticationDatasourceImpl.checkAuth(),
           ).thenAnswer(
-                (_) => Future.value(null),
+            (_) async => null,
           );
 
           final checkAuth = authenticationRepositoryImpl.checkAuth();
 
-          expectLater(checkAuth, completion(isTrue));
+          expectLater(checkAuth, completion(isNull));
+
+          verify(mockAuthenticationDatasourceImpl.checkAuth()).called(1);
         },
       );
 
       test(
         'authenticationCheckAuthenticationSuccessful',
-            () {
+        () {
           when(
             mockAuthenticationDatasourceImpl.checkAuth(),
           ).thenAnswer(
-                (_) => Future.value(user),
+            (_) => Future.value(user),
           );
 
           final checkAuth = authenticationRepositoryImpl.checkAuth();
 
           expectLater(checkAuth, completion(isNotNull));
+
+          verify(mockAuthenticationDatasourceImpl.checkAuth()).called(1);
         },
       );
     },

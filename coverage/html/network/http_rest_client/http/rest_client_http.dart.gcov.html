@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov.info - network/http_rest_client/http/rest_client_http.dart</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory network/http_rest_client/http">network/http_rest_client/http</a> - rest_client_http.dart</td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryMed">87.0&nbsp;%</td>
+            <td class="headerCovTableEntry">23</td>
+            <td class="headerCovTableEntry">20</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2024-11-30 12:53:05</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : import 'package:flutter/cupertino.dart';</span>
+<span id="L2"><span class="lineNum">       2</span>              : import 'package:flutter_tests/network/http_rest_client/http_exceptions/rest_client_exception.dart';</span>
+<span id="L3"><span class="lineNum">       3</span>              : import 'package:flutter_tests/network/http_rest_client/rest_client_base.dart';</span>
+<span id="L4"><span class="lineNum">       4</span>              : import 'package:http/http.dart' as http;</span>
+<span id="L5"><span class="lineNum">       5</span>              : </span>
+<span id="L6"><span class="lineNum">       6</span>              : /// conditional import in Dart</span>
+<span id="L7"><span class="lineNum">       7</span>              : /// indicates that the Dart code is being compiled to run in a JavaScript environment</span>
+<span id="L8"><span class="lineNum">       8</span>              : ///</span>
+<span id="L9"><span class="lineNum">       9</span>              : ///   •       If the condition is false (e.g., running on mobile/desktop):</span>
+<span id="L10"><span class="lineNum">      10</span>              : ///     •     Only check_exception_io.dart is imported.</span>
+<span id="L11"><span class="lineNum">      11</span>              : ///     •     The check_exception_browser.dart file is completely ignored.</span>
+<span id="L12"><span class="lineNum">      12</span>              : ///     •     If the condition is true (e.g., running on the web with JavaScript interop enabled):</span>
+<span id="L13"><span class="lineNum">      13</span>              : ///     •     Only check_exception_browser.dart is imported.</span>
+<span id="L14"><span class="lineNum">      14</span>              : ///     •     The check_exception_io.dart file is completely ignored.</span>
+<span id="L15"><span class="lineNum">      15</span>              : ///</span>
+<span id="L16"><span class="lineNum">      16</span>              : import 'package:flutter_tests/network/http_rest_client/http/check_exception_io.dart'</span>
+<span id="L17"><span class="lineNum">      17</span>              :     if (dart.library.js_interop) 'package:flutter_tests/network/http_rest_client/http/check_exception_browser.dart';</span>
+<span id="L18"><span class="lineNum">      18</span>              : </span>
+<span id="L19"><span class="lineNum">      19</span>              : // RestClientHttp is class that extends RestClientBase</span>
+<span id="L20"><span class="lineNum">      20</span>              : // &quot;RestClientBase&quot; is not using anywhere, it's just a abstract class that other classes should extend</span>
+<span id="L21"><span class="lineNum">      21</span>              : // implementations will be used only</span>
+<span id="L22"><span class="lineNum">      22</span>              : final class RestClientHttp extends RestClientBase {</span>
+<span id="L23"><span class="lineNum">      23</span>              :   // you can not pass client if you want</span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           5 :   RestClientHttp({</span></span>
+<span id="L25"><span class="lineNum">      25</span>              :     required super.baseUrl,</span>
+<span id="L26"><span class="lineNum">      26</span>              :     http.Client? client, // you don't have to send client, uses for tests most of all</span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 :   }) : _client = client ?? http.Client();</span></span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              :   final http.Client _client;</span>
+<span id="L30"><span class="lineNum">      30</span>              : </span>
+<span id="L31"><span class="lineNum">      31</span>              :   // for more information check out this link</span>
+<span id="L32"><span class="lineNum">      32</span>              :   // https://github.com/hawkkiller/sizzle_starter/blob/main/lib/src/core/rest_client/src/http/rest_client_http.dart</span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           4 :   @override</span></span>
+<span id="L34"><span class="lineNum">      34</span>              :   Future&lt;Map&lt;String, Object?&gt;?&gt; send({</span>
+<span id="L35"><span class="lineNum">      35</span>              :     required String path,</span>
+<span id="L36"><span class="lineNum">      36</span>              :     required RequestType method,</span>
+<span id="L37"><span class="lineNum">      37</span>              :     Map&lt;String, Object?&gt;? body,</span>
+<span id="L38"><span class="lineNum">      38</span>              :     Map&lt;String, String&gt;? headers,</span>
+<span id="L39"><span class="lineNum">      39</span>              :     Map&lt;String, String?&gt;? queryParams,</span>
+<span id="L40"><span class="lineNum">      40</span>              :     List&lt;http.MultipartFile&gt;? files,</span>
+<span id="L41"><span class="lineNum">      41</span>              :   }) async {</span>
+<span id="L42"><span class="lineNum">      42</span>              :     try {</span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           4 :       final uri = buildUri(path: path, queryParams: queryParams);</span></span>
+<span id="L44"><span class="lineNum">      44</span>              : </span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           8 :       final request = http.MultipartRequest(method.name, uri);</span></span>
+<span id="L46"><span class="lineNum">      46</span>              : </span>
+<span id="L47"><span class="lineNum">      47</span>              :       // Add files to the multipart request</span>
+<span id="L48"><span class="lineNum">      48</span>              :       // file's name will be added with it's field which you added from http.MultipartFile</span>
+<span id="L49"><span class="lineNum">      49</span>              :       // take a look inside network/http_rest_client/repository_test.dart</span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           1 :       if (files != null &amp;&amp; files.isNotEmpty) {</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           2 :         request.files.addAll(files);</span></span>
+<span id="L52"><span class="lineNum">      52</span>              :       }</span>
+<span id="L53"><span class="lineNum">      53</span>              : </span>
+<span id="L54"><span class="lineNum">      54</span>              :       // Add other fields in the body to the multipart request</span>
+<span id="L55"><span class="lineNum">      55</span>              :       if (body != null) {</span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           4 :         body.forEach((key, value) {</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           6 :           request.fields[key] = value.toString();</span></span>
+<span id="L58"><span class="lineNum">      58</span>              :         });</span>
+<span id="L59"><span class="lineNum">      59</span>              :       }</span>
+<span id="L60"><span class="lineNum">      60</span>              : </span>
+<span id="L61"><span class="lineNum">      61</span>              :       // Add headers if provided</span>
+<span id="L62"><span class="lineNum">      62</span>              :       if (headers != null) {</span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaUNC">           0 :         request.headers.addAll(headers);</span></span>
+<span id="L64"><span class="lineNum">      64</span>              :       }</span>
+<span id="L65"><span class="lineNum">      65</span>              : </span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           8 :       final response = await _client.send(request);</span></span>
+<span id="L67"><span class="lineNum">      67</span>              : </span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           4 :       final responseStream = await http.Response.fromStream(response);</span></span>
+<span id="L69"><span class="lineNum">      69</span>              : </span>
+<span id="L70"><span class="lineNum">      70</span>              :       // Log the server's response body</span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          16 :       debugPrint(&quot;body is: ${responseStream.body}&quot;);</span></span>
+<span id="L72"><span class="lineNum">      72</span>              : </span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           4 :       return await decodeResponse(</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           8 :         BytesResponseBody(responseStream.bodyBytes),</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           4 :         statusCode: response.statusCode,</span></span>
+<span id="L76"><span class="lineNum">      76</span>              :       );</span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           3 :     } on RestClientException {</span></span>
+<span id="L78"><span class="lineNum">      78</span>              :       rethrow;</span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           1 :     } on http.ClientException catch (e, stack) {</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           3 :       debugPrint(&quot;error is: $e&quot;);</span></span>
+<span id="L81"><span class="lineNum">      81</span>              :       // TODO: write en error exception</span>
+<span id="L82"><span class="lineNum">      82</span>              :       // write exceptions in the future</span>
+<span id="L83"><span class="lineNum">      83</span>              :       // when you will get what is going on here</span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           1 :       final checkException = checkHttpException(e);</span></span>
+<span id="L85"><span class="lineNum">      85</span>              : </span>
+<span id="L86"><span class="lineNum">      86</span>              :       // the Error.throwWithStackTrace method is used to rethrow an exception</span>
+<span id="L87"><span class="lineNum">      87</span>              :       // while preserving the stack trace, which is important for debugging.</span>
+<span id="L88"><span class="lineNum">      88</span>              :       if (checkException != null) {</span>
+<span id="L89"><span class="lineNum">      89</span> <span class="tlaUNC">           0 :         Error.throwWithStackTrace(checkException, stack);</span></span>
+<span id="L90"><span class="lineNum">      90</span>              :       }</span>
+<span id="L91"><span class="lineNum">      91</span>              : </span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           1 :       Error.throwWithStackTrace(</span></span>
+<span id="L93"><span class="lineNum">      93</span> <span class="tlaGNC">           2 :         ClientException(message: e.message, cause: e),</span></span>
+<span id="L94"><span class="lineNum">      94</span>              :         stack,</span>
+<span id="L95"><span class="lineNum">      95</span>              :       );</span>
+<span id="L96"><span class="lineNum">      96</span>              :     }</span>
+<span id="L97"><span class="lineNum">      97</span>              :   }</span>
+<span id="L98"><span class="lineNum">      98</span>              : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.2-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
