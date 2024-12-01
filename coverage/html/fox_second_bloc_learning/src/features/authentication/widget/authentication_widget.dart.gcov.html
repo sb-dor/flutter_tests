@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-30 12:53:05</td>
+            <td class="headerValue">2024-12-01 10:23:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -69,38 +69,38 @@
 <span id="L7"><span class="lineNum">       7</span>              : import 'package:flutter_tests/fox_second_bloc_learning/src/features/post/widgets/post_page.dart';</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
 <span id="L9"><span class="lineNum">       9</span>              : class AuthenticationWidget extends StatefulWidget {</span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           3 :   const AuthenticationWidget({super.key});</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           7 :   const AuthenticationWidget({super.key});</span></span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           1 :   @override</span></span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           1 :   State&lt;AuthenticationWidget&gt; createState() =&gt; _AuthenticationWidgetState();</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           2 :   State&lt;AuthenticationWidget&gt; createState() =&gt; _AuthenticationWidgetState();</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : }</span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span>              : class _AuthenticationWidgetState extends State&lt;AuthenticationWidget&gt; {</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           1 :   @override</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 :   @override</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :   void initState() {</span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           1 :     super.initState();</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           2 :     super.initState();</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :     // you can either add event from freezed like this</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           3 :     context.read&lt;AuthenticationBloc&gt;().add(const AuthenticationBlocEvents.checkAuth());</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           6 :     context.read&lt;AuthenticationBloc&gt;().add(const AuthenticationBlocEvents.checkAuth());</span></span>
 <span id="L22"><span class="lineNum">      22</span>              :   }</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :   @override</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           2 :   @override</span></span>
 <span id="L25"><span class="lineNum">      25</span>              :   Widget build(BuildContext context) {</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :     return Scaffold(</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           1 :       appBar: AppBar(</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :     return Scaffold(</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           2 :       appBar: AppBar(</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :         title: const Text(&quot;Authentication&quot;),</span>
 <span id="L29"><span class="lineNum">      29</span>              :       ),</span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           1 :       body: BlocConsumer&lt;AuthenticationBloc, AuthenticationStates&gt;(</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :         builder: (context, state) {</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           4 :           debugPrint(&quot;state is: ${state.runtimeType}&quot;);</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           1 :           return SizedBox.expand(</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           1 :             child: Column(</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           2 :       body: BlocConsumer&lt;AuthenticationBloc, AuthenticationStates&gt;(</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           2 :         builder: (context, state) {</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           8 :           debugPrint(&quot;state is: ${state.runtimeType}&quot;);</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           2 :           return SizedBox.expand(</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           2 :             child: Column(</span></span>
 <span id="L35"><span class="lineNum">      35</span>              :               crossAxisAlignment: CrossAxisAlignment.center,</span>
 <span id="L36"><span class="lineNum">      36</span>              :               mainAxisAlignment: MainAxisAlignment.center,</span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           1 :               children: [</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           1 :                 if (state is InProgressAuthenticationState)</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           2 :               children: [</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           2 :                 if (state is InProgressAuthenticationState)</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           1 :                   const CircularProgressIndicator()</span></span>
 <span id="L40"><span class="lineNum">      40</span>              :                 else</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           1 :                   TextButton(</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           2 :                   TextButton(</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :                     key: const ValueKey(authenticationTextButtonKey),</span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           1 :                     onPressed: () {</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           2 :                       context.read&lt;AuthenticationBloc&gt;().add(</span></span>
@@ -116,8 +116,8 @@
 <span id="L54"><span class="lineNum">      54</span>              :             ),</span>
 <span id="L55"><span class="lineNum">      55</span>              :           );</span>
 <span id="L56"><span class="lineNum">      56</span>              :         },</span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           1 :         listener: (context, state) {</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           1 :           if (state is AuthenticatedState) {</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           2 :         listener: (context, state) {</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           2 :           if (state is AuthenticatedState) {</span></span>
 <span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           1 :             Navigator.pushAndRemoveUntil(</span></span>
 <span id="L60"><span class="lineNum">      60</span>              :               context,</span>
 <span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           1 :               MaterialPageRoute(</span></span>

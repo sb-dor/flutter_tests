@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-30 12:53:05</td>
+            <td class="headerValue">2024-12-01 10:23:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -79,17 +79,17 @@
 <span id="L17"><span class="lineNum">      17</span>              : final class AuthenticationRepositoryImpl implements IAuthenticationRepository {</span>
 <span id="L18"><span class="lineNum">      18</span>              :   final IAuthenticationDatasource _authenticationDatasource;</span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           3 :   AuthenticationRepositoryImpl(this._authenticationDatasource);</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           4 :   AuthenticationRepositoryImpl(this._authenticationDatasource);</span></span>
 <span id="L21"><span class="lineNum">      21</span>              : </span>
 <span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           3 :   @override</span></span>
 <span id="L23"><span class="lineNum">      23</span>              :   Future&lt;AuthenticatedUser?&gt; login({required String email, required String password}) =&gt;</span>
 <span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           6 :       _authenticationDatasource.login(email: email, password: password);</span></span>
 <span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :   @override</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           4 :   Future&lt;bool&gt; logout() =&gt; _authenticationDatasource.logout();</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           3 :   @override</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           6 :   Future&lt;bool&gt; logout() =&gt; _authenticationDatasource.logout();</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           3 :   @override</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           6 :   Future&lt;AuthenticatedUser?&gt; checkAuth() =&gt; _authenticationDatasource.checkAuth();</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           4 :   @override</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           8 :   Future&lt;AuthenticatedUser?&gt; checkAuth() =&gt; _authenticationDatasource.checkAuth();</span></span>
 <span id="L31"><span class="lineNum">      31</span>              : }</span>
         </pre>
               </td>

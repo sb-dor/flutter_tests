@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-30 12:53:05</td>
+            <td class="headerValue">2024-12-01 10:23:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -71,21 +71,21 @@
 <span id="L9"><span class="lineNum">       9</span>              :   final String author;</span>
 <span id="L10"><span class="lineNum">      10</span>              :   final File? attachedFile;</span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           1 :   Post({</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           3 :   Post({</span></span>
 <span id="L13"><span class="lineNum">      13</span>              :     required this.title,</span>
 <span id="L14"><span class="lineNum">      14</span>              :     required this.content,</span>
 <span id="L15"><span class="lineNum">      15</span>              :     required this.author,</span>
 <span id="L16"><span class="lineNum">      16</span>              :     this.attachedFile,</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           1 :   })  : id = const Uuid().v4(),</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           1 :         datetime = DateTime.now();</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           3 :   })  : id = const Uuid().v4(),</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           3 :         datetime = DateTime.now();</span></span>
 <span id="L19"><span class="lineNum">      19</span>              : </span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           1 :   Map&lt;String, Object?&gt; toJson() {</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :     return {</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :       &quot;id&quot;: id,</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           1 :       &quot;title&quot;: title,</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :       &quot;content&quot;: content,</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :       &quot;datetime&quot;: datetime,</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :       &quot;author&quot;: author,</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           3 :   Map&lt;String, Object?&gt; toJson() {</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           3 :     return {</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           3 :       &quot;id&quot;: id,</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           3 :       &quot;title&quot;: title,</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           3 :       &quot;content&quot;: content,</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           3 :       &quot;datetime&quot;: datetime,</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           3 :       &quot;author&quot;: author,</span></span>
 <span id="L27"><span class="lineNum">      27</span>              :     };</span>
 <span id="L28"><span class="lineNum">      28</span>              :   }</span>
 <span id="L29"><span class="lineNum">      29</span>              : }</span>
