@@ -13,7 +13,7 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      key: ValueKey("${Post}_${post.id}"),
+      key: ValueKey<String>("post_widget_${post.id}"),
       title: Text(post.title),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

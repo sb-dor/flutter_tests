@@ -49,6 +49,7 @@ class _State extends State<PostPage> {
                 );
               } else {
                 return IconButton(
+                  key: const ValueKey<String>(logoutTextButtonKey),
                   onPressed: () {
                     // or like this
                     context.read<AuthenticationBloc>().add(const LogOutAuthenticationEvent());
@@ -63,12 +64,13 @@ class _State extends State<PostPage> {
       floatingActionButton: FloatingActionButton(
         key: const ValueKey(addPostFloatingButtonPostPage),
         onPressed: () async {
-          Navigator.push(
+         await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const PostCreationWidget(),
             ),
           );
+         debugPrint("MIYAMI TO AMIJARA");
         },
         child: const Icon(
           Icons.add,

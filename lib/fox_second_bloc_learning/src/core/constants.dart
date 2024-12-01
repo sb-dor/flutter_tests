@@ -1,6 +1,7 @@
 const String authenticationTextButtonKey = "auth_test_text_button";
 const String addPostFloatingButtonPostPage = "add_post_floating_button_post_page";
 const String savePostFloatingButtonPostPage = "save_post_floating_button_post_page";
+const String logoutTextButtonKey = "logout_text_button_key";
 
 //
 const String titleTextControllerKey = "title_text_controller_key";
