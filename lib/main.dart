@@ -19,7 +19,16 @@ import 'network/network_test_page.dart';
 // https://docs.flutter.dev/cookbook/testing/widget/tap-drag
 // https://docs.flutter.dev/testing/integration-tests
 void main() {
-  AppRunner().initApp();
+  List<UsableItem> items = [
+    Weapon(1, "Weapn desc", "sword"),
+    Armor(1, "Armor desc", "Armor"),
+    // Grass(1, "Grass desc", "Grass"),
+  ];
+
+  for (final each in items) {
+    each.use();
+  }
+  // AppRunner().initApp();
   // runZonedGuarded(
   //   () {
   //     WidgetsFlutterBinding.ensureInitialized();
@@ -50,4 +59,45 @@ void main() {
   //     // debug error
   //   },
   // );
+}
+
+abstract class Item {
+  int id;
+  String? desc;
+  String? name;
+
+  Item(this.id, this.desc, this.name);
+
+  String description();
+}
+
+abstract class UsableItem {
+  void use();
+}
+
+class Weapon extends Item implements UsableItem {
+  Weapon(super.id, super.desc, super.name);
+
+  @override
+  String description() => "$desc";
+
+  @override
+  void use() => debugPrint("using -> $name");
+}
+
+class Armor extends Item implements UsableItem {
+  Armor(super.id, super.desc, super.name);
+
+  @override
+  String description() => "$desc";
+
+  @override
+  void use() => debugPrint("using -> $name");
+}
+
+class Grass extends Item {
+  Grass(super.id, super.desc, super.name);
+
+  @override
+  String description() => "$desc";
 }
