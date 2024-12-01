@@ -23,11 +23,13 @@ import 'fox_second_bloc_integration_test.mocks.dart';
 class FoxSecondBlocIntegrationTest extends StatelessWidget {
   final PostBloc postBloc;
   final AuthenticationBloc authenticationBloc;
+  final Widget screen;
 
   const FoxSecondBlocIntegrationTest({
     super.key,
     required this.postBloc,
     required this.authenticationBloc,
+    required this.screen,
   });
 
   @override
@@ -37,8 +39,8 @@ class FoxSecondBlocIntegrationTest extends StatelessWidget {
         BlocProvider(create: (_) => authenticationBloc),
         BlocProvider(create: (_) => postBloc),
       ],
-      child: const MaterialApp(
-        home: AuthenticationWidget(),
+      child: MaterialApp(
+        home: screen,
       ),
     );
   }
@@ -86,6 +88,7 @@ void main() {
       app = FoxSecondBlocIntegrationTest(
         authenticationBloc: authenticationBloc,
         postBloc: postBloc,
+        screen: const AuthenticationWidget(),
       );
     },
   );
