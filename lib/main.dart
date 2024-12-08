@@ -1,10 +1,16 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/add_to_cart_test/feature/initialization/logic/app_runner.dart';
 import 'package:flutter_tests/dash_test/dash_page.dart';
 import 'package:flutter_tests/favorites_test/models/favorites.dart';
+import 'package:flutter_tests/logger/error_reporter/error_reporter.dart';
+import 'package:flutter_tests/logger/error_reporter/impl/sentry_error_reporter.dart';
+import 'package:flutter_tests/logger/log_observers/impl/error_reporter_log_observer/error_reporter_log_observer.dart';
+import 'package:flutter_tests/logger/log_observers/impl/printing_observer/printing_log_observer.dart';
+import 'package:flutter_tests/logger/logger.dart';
 import 'package:flutter_tests/todo_test/todo_page.dart';
 import 'package:flutter_tests/todo_test/todo_provider.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +24,21 @@ import 'network/network_test_page.dart';
 // https://docs.flutter.dev/cookbook/testing/widget/scrolling
 // https://docs.flutter.dev/cookbook/testing/widget/tap-drag
 // https://docs.flutter.dev/testing/integration-tests
-void main() {
+void main() async {
   List<UsableItem> items = [
     Weapon(1, "Weapn desc", "sword"),
     Armor(1, "Armor desc", "Armor"),
     // Grass(1, "Grass desc", "Grass"),
   ];
+
+  final ErrorReporter sentryReporter = SentryErrorReporter();
+  await sentryReporter.init();
+  final logger = AppLogger(
+    [
+      ErrorReporterLogObserver(sentryReporter),
+      if (kDebugMode) PrintingLogObserver(LogLevel.trace),
+    ],
+  );
 
   for (final each in items) {
     each.use();
