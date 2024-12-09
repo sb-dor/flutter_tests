@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tests/add_to_cart_test/feature/initialization/logic/app_runner.dart';
 import 'package:flutter_tests/dash_test/dash_page.dart';
+import 'package:flutter_tests/dot_env/dot_env_helper.dart';
 import 'package:flutter_tests/favorites_test/models/favorites.dart';
 import 'package:flutter_tests/logger/error_reporter/error_reporter.dart';
 import 'package:flutter_tests/logger/error_reporter/impl/sentry_error_reporter.dart';
@@ -30,7 +31,7 @@ void main() async {
     Armor(1, "Armor desc", "Armor"),
     // Grass(1, "Grass desc", "Grass"),
   ];
-
+  await DotEnvHelper.internal.init();
   final ErrorReporter sentryReporter = SentryErrorReporter();
   await sentryReporter.init();
   final logger = AppLogger(
@@ -40,10 +41,11 @@ void main() async {
     ],
   );
 
+
   for (final each in items) {
     each.use();
   }
-  // AppRunner().initApp();
+  AppRunner().initApp();
   // runZonedGuarded(
   //   () {
   //     WidgetsFlutterBinding.ensureInitialized();
@@ -70,7 +72,7 @@ void main() async {
   //     );
   //   },
   //   (error, sTrace) {
-  //     debugPrint("error is $error | trace: $sTrace");
+  //     debugPrint("runZoneGuarded error is $error | trace: $sTrace");
   //     // debug error
   //   },
   // );

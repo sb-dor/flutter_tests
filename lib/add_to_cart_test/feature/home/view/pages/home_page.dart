@@ -73,18 +73,17 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text("Product name: ${product.name}"),
-                              const SizedBox(height: 5),
-                              Text(
-                                "Product desc: ${product.description}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Product name: ${product.name} aslkdjlsakjdlkasjldjsalkdjlasjkldjlaksjdlasd"),
+                            const SizedBox(height: 5),
+                            Text(
+                              "Product desc: ${product.description}",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                         IconButton(
                           onPressed: () {

@@ -24,10 +24,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     AddToCart event,
     Emitter<CartState> emit,
   ) {
-    final findProduct = _cartItems.firstWhereOrNull((e) => e.product.id == event.product.id);
+    final findProduct = _cartItems.firstWhereOrNull((e) => e.product?.id == event.product.id);
 
     if (findProduct != null) {
-      findProduct.qty++;
+      findProduct.qty = findProduct.qty! + 1;
     } else {
       final cartItem = CartModel(product: event.product, price: event.product.price, qty: 1);
       _cartItems.add(cartItem);

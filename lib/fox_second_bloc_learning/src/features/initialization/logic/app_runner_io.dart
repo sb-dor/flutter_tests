@@ -12,8 +12,23 @@ class AppRunnerIo {
 
     binding.deferFirstFrame();
     try {
-      // init app dependencies and all necessary things here
 
+      // https://lazebny.io/mastering-error-handling/#handling-flutter-errors
+      // await Firebase.initializeApp();
+      // Triggered by widget-related issues, such as a RenderFlex overflow.
+      FlutterError.onError = (error) {
+        debugPrint("flutter error is $error");
+      };
+      // you can use firebase crashlytics
+      // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+      // Activates on platform exceptions, like MethodChannel failures.
+      WidgetsBinding.instance.platformDispatcher.onError = (error, stackTrace) {
+        debugPrint("flutter platformDispatcher error is: $error | stackTrace: $stackTrace");
+        return true;
+      };
+
+      // init app dependencies and all necessary things here
       final compositionResult = await CompositionRoot().composeResult();
 
       runApp(
@@ -25,6 +40,7 @@ class AppRunnerIo {
         ),
       );
     } catch (error, stackTrace) {
+      // FirebaseCrashlytics.instance.recordError(error, stackTrace));
       // catch problems here
       rethrow;
     } finally {

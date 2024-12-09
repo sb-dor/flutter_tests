@@ -28,12 +28,15 @@ class HomeDataSourceNetwork implements HomeDatasource {
   Future<List<Product>> getProducts() async {
     final data = await _restClientBase.get(_recommended);
 
-    final responseData = data?['data'];
-    if (data == null || data is! List) {
+    final responseData = data?['data'] as List;
+
+    debugPrint("data: $responseData");
+
+    if (data == null) {
       throw const WrongResponseTypeException(message: "Wrong response type");
     }
 
-    List<dynamic> list = responseData as List;
+    List<dynamic> list = responseData;
 
     return list.map((e) => Product.fromJson(e)).toList();
   }

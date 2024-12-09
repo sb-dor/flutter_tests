@@ -36,11 +36,12 @@ class _CartPageState extends State<CartPage> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Product name: ${product.product.name}"),
+                          Text("Product name: ${product.product?.name}"),
                           const SizedBox(height: 5),
                           Text(
-                            "Product desc: ${product.product.description}",
+                            "Product desc: ${product.product?.description ?? ''}",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
